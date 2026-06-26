@@ -493,6 +493,7 @@
     {n:'Playa de Poniente',     c:'playa', lat:43.5440, lng:-5.6760, q:'Playa de Poniente Gijón', d:'Junto al puerto, resguardada.', h:[[700,2300]]},
     {n:'Playa del Arbeyal',     c:'playa', lat:43.5495, lng:-5.6960, q:'Playa del Arbeyal Gijón', d:'La Calzada (oeste), ambiente local.', h:[[700,2300]]},
     {n:'Playa de La Ñora',      c:'playa', lat:43.5318, lng:-5.5835, q:'Playa de La Ñora Gijón', d:'A las afueras (este), entre verde.', h:[[700,2300]]},
+    {n:'Alojamiento 1 · Apto. La Arena', c:'alojamiento', lat:43.5392, lng:-5.6498, q:'Barrio La Arena Gijón', d:'Nuestra base: apartamento en el Barrio de La Arena, junto a la playa de San Lorenzo. 6 plazas, 3 hab., terraza y ascensor.', url:'https://www.reservalos.es/details/room/id/76?from=2026-07-13&to=2026-07-18&guests_rooms=5%2C0'},
   ];
 
   const DARK_STYLE = [
@@ -529,9 +530,9 @@
     '<div style="font-family:Inter,sans-serif;min-width:150px;color:#f3f5f7;padding:2px 2px">'+
     '<b style="font-size:1rem;color:#fff">'+p.n+'</b><br>'+
     '<span style="font-size:.76rem;color:'+COLORS[p.c]+'">'+CATLABEL[p.c]+'</span><br>'+
-    '<a href="'+gLink(p)+'" target="_blank" style="display:inline-block;margin-top:8px;'+
+    '<a href="'+(p.url||gLink(p))+'" target="_blank" style="display:inline-block;margin-top:8px;'+
     'background:#38bdf8;color:#06121b;text-decoration:none;font-weight:700;'+
-    'font-size:.82rem;padding:7px 12px;border-radius:9px">📍 Cómo llegar</a></div>';
+    'font-size:.82rem;padding:7px 12px;border-radius:9px">'+(p.url?'🔗 Ver alojamiento':'📍 Cómo llegar')+'</a></div>';
 
   // ---- Google ----
   function loadGoogle(){
@@ -650,7 +651,7 @@
         '<span class="poi-cat">'+CATLABEL[p.c]+'</span></div>'+
         '<div class="poi-body"><h4>'+escapeHtml(p.n)+'</h4><p>'+escapeHtml(p.d||'')+'</p>'+
         '<div class="poi-actions"><button class="poi-map" type="button">📍 En el mapa</button>'+
-        '<a class="poi-go" href="'+g+'" target="_blank" rel="noopener">Cómo llegar ▸</a></div></div></div>';
+        '<a class="poi-go" href="'+(p.url||g)+'" target="_blank" rel="noopener">'+(p.url?'Ver alojamiento ▸':'Cómo llegar ▸')+'</a></div></div></div>';
     }).join('');
     box.addEventListener('click', e=>{
       if(e.target.closest('.poi-go')) return;            // deja seguir el enlace
