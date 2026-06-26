@@ -285,9 +285,7 @@
   }
   @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* ---- Cabecera con carruseles de personas ---- */
-  .hero{position:relative;overflow:hidden}
-  .carousel{display:none}
+  /* ---- Tarjetas de personas (usadas en la tira inferior) ---- */
   .person{
     width:208px;flex:0 0 auto;background:var(--glass);
     border:1px solid var(--line);border-radius:15px;overflow:hidden;
@@ -304,18 +302,6 @@
   .person .pquote{font-size:.79rem;color:var(--muted);font-style:italic;margin:7px 0 9px;line-height:1.4;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .person .ptags{font-family:var(--display);font-size:.6rem;letter-spacing:.1em;color:#8a93a3;text-transform:uppercase}
-  @media(min-width:1120px){
-    .carousel{display:block;position:absolute;top:0;bottom:0;width:224px;z-index:1;overflow:hidden;
-      -webkit-mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
-              mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent)}
-    .carousel.left{left:16px}
-    .carousel.right{right:16px}
-    .ctrack{display:flex;flex-direction:column;gap:14px;padding:8px 0;animation:scrollY 28s linear infinite}
-    .carousel.right .ctrack{animation-duration:35s;animation-direction:reverse}
-    .carousel:hover .ctrack{animation-play-state:paused}
-    .hero{min-height:600px;display:flex;align-items:center}
-    .hero header{flex:1 1 auto;padding-left:252px;padding-right:252px}
-  }
   @keyframes scrollY{from{transform:translateY(0)}to{transform:translateY(-50%)}}
 
   /* ---- Asistente del viaje ---- */
@@ -412,14 +398,10 @@
 </head>
 <body>
 
-<div class="hero">
-  <div class="carousel left" aria-hidden="true"><div class="ctrack" id="ctrack-l"></div></div>
-  <div class="carousel right" aria-hidden="true"><div class="ctrack" id="ctrack-r"></div></div>
-  <header>
-    <div class="eyebrow">Asturias · 2026</div>
-    <h1>De bares por <span class="glow">Gijón</span>, y lo que surja.</h1>
-  </header>
-</div>
+<header>
+  <div class="eyebrow">Asturias · 2026</div>
+  <h1>De bares por <span class="glow">Gijón</span>, y lo que surja.</h1>
+</header>
 
 <nav id="nav">
   <button data-target="todos" class="active">🗺️ Todos</button>
@@ -441,278 +423,6 @@
   <div id="map"></div>
 </div>
 
-<main>
-
-  <!-- ============ COMER ============ -->
-  <section id="restaurantes">
-    <div class="section-title"><span class="em">🍽️</span> Restaurantes</div>
-    <div class="section-sub">De más económico a más formal. Casi todo cerca del centro / Cimadevilla.</div>
-
-    <div class="card">
-      <h3>Tierra Astur Poniente</h3>
-      <div class="tags">
-        <span class="tag price">€ Económico</span>
-        <span class="tag">🍴 Cenar</span>
-        <span class="tag">🍏 Barra libre de sidra</span>
-      </div>
-      <p>Más para turistas, pero está bien: buena comida y decoración asturiana. Ideal para <strong>cenar y calentar motores</strong>. La barra libre de sidra es un plus 😄</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Tierra+Astur+Poniente+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Mesón Sancho</h3>
-      <div class="tags">
-        <span class="tag price">€ Económico</span>
-        <span class="tag">🍴 Cenar</span>
-      </div>
-      <p>Junto con Tierra Astur, de los más baratos de la lista. Buena opción para ir sobre seguro.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Mes%C3%B3n+Sancho+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Mamaguaja <span class="tag fav">⭐ Favorito</span></h3>
-      <div class="tags">
-        <span class="tag price">€€ ~40 (máx 50)</span>
-        <span class="tag">🍴 Comer</span>
-      </div>
-      <p>De precio algo más alto (~40€; si no pedís bogavante o cosas así, no debería pasar de 50). Mejor para <strong>comer</strong>. A nosotros nos gusta bastante.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Mamaguaja+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Restaurante Zabala (antiguo) <span class="tag fav">⭐ Recomendado</span></h3>
-      <div class="tags">
-        <span class="tag price">€€ ~40 (máx 50)</span>
-        <span class="tag">🐟 Pescado</span>
-        <span class="tag">📍 Cimadevilla</span>
-      </div>
-      <p>En Cimadevilla. Para <strong>pescados y demás</strong> tiene muy buen producto y cocinan muy bien. Gran opción para comer bien.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Zabala+Cimadevilla+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>El Recetario de Alex San Pedro</h3>
-      <div class="tags">
-        <span class="tag price">€€ 35–40</span>
-        <span class="tag">🍷 Más formal</span>
-        <span class="tag">📍 Muy cerca</span>
-      </div>
-      <p>Se come bien y os queda muy cerca. Un punto más <strong>formal</strong>. Precio sobre 35–40€.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=El+Recetario+de+Alex+San+Pedro+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="sub-head"><span>🍔</span> Algo diferente</div>
-
-    <div class="card">
-      <h3>Berty's Burger</h3>
-      <div class="tags">
-        <span class="tag">🍔 Hamburguesas</span>
-        <span class="tag">📍 Cerca de todo</span>
-      </div>
-      <p>Si os apetece hamburguesa, están muy bien. Y os queda cerca de todo.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Berty%27s+Burger+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Carbone</h3>
-      <div class="tags">
-        <span class="tag">🍝 Italiano</span>
-        <span class="tag">⚓ Puerto</span>
-      </div>
-      <p>Italiano, en el puerto. Buena opción para variar de cocina asturiana.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Carbone+restaurante+puerto+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BARES ============ -->
-  <section id="bares" class="hidden">
-    <div class="section-title"><span class="em">🍸</span> Bares</div>
-    <div class="section-sub">Vinos, vermut y tardeo. Todo cae muy cerca entre sí.</div>
-
-    <div class="sub-head"><span>🍇</span> Zonas de vinos (desde las 19:00)</div>
-
-    <div class="card">
-      <h3>Ruta de los Vinos</h3>
-      <div class="tags"><span class="tag">🍷 Vinos</span><span class="tag">📍 Muy cerca</span></div>
-      <p>Para empezar la tarde desde las 7 o así. Os pilla muy cerca.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Ruta+de+los+Vinos+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>La Cuesta del Cholo</h3>
-      <div class="tags"><span class="tag">🍷 Vinos</span><span class="tag">🍹 Vermut</span><span class="tag">☀️ Si no llueve</span><span class="tag">📍 Muy cerca</span></div>
-      <p>Alternativa a la ruta de los vinos, también muy cerca. Mejor <strong>si no llueve</strong> (es de calle). También va muy bien para el <strong>vermut</strong>.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Cuesta+del+Cholo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="sub-head"><span>🍸</span> Vermut</div>
-
-    <div class="card">
-      <h3>La Casona de Jovellanos</h3>
-      <div class="tags"><span class="tag">🍹 Vermut</span><span class="tag">📍 Cimadevilla</span></div>
-      <p>En Cimadevilla. Buen sitio para el <strong>vermut</strong>.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=La+Casona+de+Jovellanos+Cimadevilla+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>La Cuesta del Cholo</h3>
-      <div class="tags"><span class="tag">🍹 Vermut</span><span class="tag">📍 Muy cerca</span></div>
-      <p>También de las mejores para el vermut (ver arriba, en zona de vinos).</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Cuesta+del+Cholo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="sub-head"><span>🍹</span> Tardeo</div>
-
-    <div class="card">
-      <h3>Gabbana</h3>
-      <div class="tags"><span class="tag">🍹 Tardeo</span></div>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Gabbana+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Perro Viejo</h3>
-      <div class="tags"><span class="tag">🍹 Tardeo</span></div>
-      <p class="note">Aquí os sentiréis los más jóvenes… jajaja</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Perro+Viejo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Buda</h3>
-      <div class="tags"><span class="tag">🍹 Tardeo</span></div>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Buda+bar+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ============ PUBS ============ -->
-  <section id="pubs" class="hidden">
-    <div class="section-title"><span class="em">🍺</span> Pubs &amp; Copas</div>
-    <div class="section-sub">Para la noche: copas, cócteles y fiesta.</div>
-
-    <div class="sub-head"><span>🍸</span> Cócteles &amp; copas</div>
-
-    <div class="card">
-      <h3>El Varsovia <span class="tag fav">⭐ Con vistas</span></h3>
-      <div class="tags"><span class="tag">🍸 Cócteles</span><span class="tag">🌅 Vistas a San Lorenzo</span></div>
-      <p>Muy way, bien decorado y con <strong>vistas a la playa de San Lorenzo</strong>. Ponen buenas copas.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=El+Varsovia+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>San Telmo</h3>
-      <div class="tags"><span class="tag">🍸 Cócteles</span><span class="tag">📍 Cerca</span></div>
-      <p>Unos cócteles muy buenos, y cerca de todo.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=San+Telmo+coctel%C3%ADa+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="sub-head"><span>🎉</span> Fiesta</div>
-
-    <div class="card">
-      <h3>Metrópoli Gijón <span class="tag hot">🔥 Empieza el viernes</span></h3>
-      <div class="tags">
-        <span class="tag">🎤 Conciertos + fiesta</span>
-        <span class="tag price">~10 €</span>
-        <span class="tag">🕓 Hasta las 4:00</span>
-      </div>
-      <p>En la <strong>Feria de Muestras</strong> (al final de la playa de San Lorenzo). Por unos 10€ tienes conciertos y luego fiesta con pinchadiscos. Abre hasta las 4 de la mañana. Está guay.</p>
-      <div class="actions">
-        <a class="a-web" href="https://metropoligijon.com/" target="_blank">🌐 Web oficial</a>
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Recinto+Ferial+Luis+Adaro+Feria+de+Muestras+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card" style="border:1px dashed rgba(255,255,255,.18);background:transparent">
-      <h3>¿Algún pub fijo?</h3>
-      <p class="note">Decidme los pubs que queráis y los añado aquí, con su punto en el mapa.</p>
-    </div>
-  </section>
-
-  <!-- ============ PLAYAS ============ -->
-  <section id="playas" class="hidden">
-    <div class="section-title"><span class="em">🏖️</span> Playas</div>
-    <div class="section-sub">De la playa urbana a las de los alrededores.</div>
-
-    <div class="card">
-      <h3>Playa de San Lorenzo <span class="tag fav">⭐ La principal</span></h3>
-      <div class="tags"><span class="tag">🏙️ En el centro</span><span class="tag">🌊 ~1,5 km de arena</span></div>
-      <p>La playa urbana por excelencia, en forma de concha y con el <strong>paseo del Muro</strong>. Justo en el centro, al lado de casi todo.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+de+San+Lorenzo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Playa de Poniente</h3>
-      <div class="tags"><span class="tag">⚓ Junto al puerto</span><span class="tag">😌 Resguardada</span></div>
-      <p>Al otro lado de Cimadevilla, junto al puerto deportivo y el Acuario. Más tranquila y resguardada del viento.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+de+Poniente+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Playa del Arbeyal</h3>
-      <div class="tags"><span class="tag">📍 La Calzada (oeste)</span><span class="tag">🏘️ Ambiente local</span></div>
-      <p>En el barrio de La Calzada, al oeste. Menos turística, más de gente de Gijón.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+del+Arbeyal+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Playa de La Ñora</h3>
-      <div class="tags"><span class="tag">🌲 A las afueras (este)</span><span class="tag">🚗 ~10 min en coche</span></div>
-      <p>Saliendo de la ciudad hacia el este, entre verde y un ambiente más natural. Buena escapada si hace bueno.</p>
-      <div class="actions">
-        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+de+La+%C3%91ora+Gij%C3%B3n" target="_blank">📍 Mapa</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ ALOJAMIENTO ============ -->
-  <section id="alojamiento" class="hidden">
-    <div class="section-title"><span class="em">🏠</span> Alojamiento</div>
-    <div class="section-sub">Vuestra base del viaje.</div>
-
-    <div class="card" style="border:1px dashed rgba(255,255,255,.18);background:transparent">
-      <h3>Aún sin definir</h3>
-      <p class="note">Pásame la <strong>dirección</strong> y añado el punto en el mapa, cómo llegar y qué tenéis cerca andando.</p>
-    </div>
-  </section>
-
-</main>
 
 <!-- ============ MAPA (siempre visible) ============ -->
 <div class="map-wrap">
@@ -750,24 +460,11 @@
 <script>
   // --- Tabs de secciones ---
   const buttons = document.querySelectorAll('#nav button');
-  const sections = {
-    restaurantes: document.getElementById('restaurantes'),
-    bares: document.getElementById('bares'),
-    pubs: document.getElementById('pubs'),
-    playas: document.getElementById('playas'),
-    alojamiento: document.getElementById('alojamiento'),
-  };
   const SEC2CAT = {restaurantes:'restaurante', bares:'bar', pubs:'pub', playas:'playa', alojamiento:'alojamiento'};
   let activeCat = 'all';   // 'all' | categoría del mapa
   function setCat(target){
     buttons.forEach(b=>b.classList.toggle('active', b.dataset.target===target));
-    if(target==='todos'){
-      Object.values(sections).forEach(s=>s.classList.remove('hidden'));
-      activeCat = 'all';
-    } else {
-      Object.entries(sections).forEach(([id,el])=>el.classList.toggle('hidden', id!==target));
-      activeCat = SEC2CAT[target] || 'all';
-    }
+    activeCat = (target==='todos') ? 'all' : (SEC2CAT[target] || 'all');
     applyMapFilter();
   }
   buttons.forEach(btn=>btn.addEventListener('click', ()=>setCat(btn.dataset.target)));
@@ -1022,17 +719,6 @@
     '<div class="pname">'+p.name+'</div>'+
     (p.quote?'<div class="pquote">'+p.quote+'</div>':'')+
     '<div class="ptags">'+(p.tags||'')+'</div></div></div>';
-  function buildCarousels(){
-    const l=document.getElementById('ctrack-l'), r=document.getElementById('ctrack-r');
-    if(!l||!r) return;
-    const half=Math.ceil(PEOPLE.length/2);
-    const a=PEOPLE.slice(0,half), b=PEOPLE.slice(half);
-    const track=arr=>{ const s=(arr.length?arr:PEOPLE).map(personCard).join(''); return s+s; }; // x2 = loop continuo
-    l.innerHTML=track(a);
-    r.innerHTML=track(b);
-  }
-  buildCarousels();
-
   // Tira de personas (horizontal en PC / vertical en móvil)
   function buildStrip(){
     const t=document.getElementById('pstrip-track'); if(!t) return;
