@@ -1,0 +1,10 @@
+# Sistema / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Config local del editor (contiene rutas absolutas de la máquina)
+.claude/
+
+# Fotos originales: la app usa las caras ya recortadas en img/people/
+/FOTOS/

@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090c">
+<title>De bares por Gijón, y lo que surja.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08090c;
+    --bg2:#0e1116;
+    --glass:rgba(255,255,255,.045);
+    --glass-strong:rgba(255,255,255,.07);
+    --line:rgba(255,255,255,.09);
+    --line2:rgba(255,255,255,.14);
+    --ink:#f3f5f7;
+    --muted:#8a93a3;
+    --lime:#a3e635;
+    --lime-d:#bef264;
+    --cyan:#38bdf8;
+    --violet:#a78bfa;
+    --red:#fb7185;
+    --display:"Space Grotesk",-apple-system,system-ui,sans-serif;
+    --body:"Inter",-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:var(--body);
+    color:var(--ink);
+    line-height:1.55;
+    background:
+      radial-gradient(900px 500px at 80% -10%, rgba(56,189,248,.10), transparent 60%),
+      radial-gradient(800px 500px at 0% 0%, rgba(163,230,53,.08), transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    background-attachment:fixed;
+    min-height:100vh;
+    padding-bottom:68px; /* hueco para el ticker del Mundial */
+  }
+
+  header{
+    padding:46px 22px 30px;
+    text-align:center;
+    position:relative;
+  }
+  header .eyebrow{
+    font-family:var(--display);
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    font-size:.7rem;
+    color:var(--lime);
+    margin-bottom:14px;
+  }
+  header h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.2rem,9vw,3.4rem);
+    line-height:1.02;
+    margin:0;
+    letter-spacing:-.02em;
+    background:linear-gradient(180deg,#fff 35%,#9aa6b6);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  header h1 .glow{
+    background:linear-gradient(120deg,var(--lime),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  header p{margin:14px auto 0;max-width:440px;color:var(--muted);font-size:1rem}
+
+  nav{
+    position:sticky;top:0;z-index:30;
+    display:flex;gap:8px;justify-content:center;
+    padding:12px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    background:rgba(8,9,12,.72);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  nav::-webkit-scrollbar{display:none}
+  nav button{
+    flex:0 0 auto;
+    font-family:var(--display);
+    font-weight:600;
+    border:1px solid var(--line2);
+    background:var(--glass);
+    color:var(--ink);
+    padding:9px 16px;
+    border-radius:999px;
+    font-size:.9rem;
+    cursor:pointer;
+    transition:.18s ease;
+  }
+  nav button:hover{border-color:var(--lime);color:#fff}
+  nav button.active{
+    background:linear-gradient(120deg,var(--lime),var(--lime-d));
+    color:#0a0c0f;border-color:transparent;
+    box-shadow:0 6px 20px rgba(163,230,53,.25);
+  }
+
+  main{max-width:720px;margin:0 auto;padding:22px 16px 10px}
+
+  .section-title{
+    font-family:var(--display);
+    display:flex;align-items:center;gap:10px;
+    font-size:1.5rem;font-weight:700;letter-spacing:-.01em;
+    margin:30px 4px 6px;
+  }
+  .section-title .em{font-size:1.5rem}
+  .section-sub{color:var(--muted);font-size:.9rem;margin:0 4px 18px}
+  .sub-head{
+    font-family:var(--display);font-weight:600;font-size:1.05rem;
+    color:var(--cyan);margin:22px 6px 12px;
+    display:flex;align-items:center;gap:8px;
+  }
+
+  .card{
+    position:relative;
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:18px 18px 16px;
+    margin-bottom:14px;
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    transition:.2s ease;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    border-color:var(--line2);
+    background:var(--glass-strong);
+    box-shadow:0 14px 40px rgba(0,0,0,.45);
+  }
+  .card h3{
+    font-family:var(--display);font-weight:600;
+    margin:0 0 2px;font-size:1.16rem;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .card .tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
+  .tag{
+    font-size:.72rem;font-weight:600;
+    padding:4px 10px;border-radius:999px;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--line);
+    color:#c2cad6;
+  }
+  .tag.price{color:#fcd34d;border-color:rgba(252,211,77,.25);background:rgba(252,211,77,.07)}
+  .tag.fav{color:var(--lime);border-color:rgba(163,230,53,.3);background:rgba(163,230,53,.08)}
+  .tag.hot{color:var(--red);border-color:rgba(251,113,133,.3);background:rgba(251,113,133,.08)}
+  .card p{margin:9px 0 0;color:#cbd2dd;font-size:.95rem}
+  .card .note{color:var(--muted);font-style:italic;font-size:.88rem}
+  .card strong{color:#fff}
+
+  .actions{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
+  .actions a{
+    text-decoration:none;font-family:var(--display);
+    font-size:.84rem;font-weight:600;
+    padding:9px 13px;border-radius:11px;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:.15s;
+  }
+  .a-map{background:rgba(56,189,248,.14);color:var(--cyan);border:1px solid rgba(56,189,248,.3)}
+  .a-map:hover{background:rgba(56,189,248,.24)}
+  .a-web{background:rgba(163,230,53,.14);color:var(--lime);border:1px solid rgba(163,230,53,.3)}
+  .a-web:hover{background:rgba(163,230,53,.24)}
+
+  /* ---- Mapa fijo debajo ---- */
+  .map-wrap{max-width:1100px;margin:10px auto 0;padding:10px 16px 60px}
+  .map-wrap .section-title{justify-content:flex-start}
+  .map-legend{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:2px 6px 14px;font-size:.85rem}
+  .map-legend .mf-label{color:var(--muted);font-size:.8rem;margin-right:2px}
+  .map-legend .mf{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--body);font-size:.84rem;font-weight:600;
+    color:#c2cad6;background:rgba(255,255,255,.05);
+    border:1px solid var(--line);border-radius:999px;
+    padding:6px 13px;cursor:pointer;transition:.15s ease;
+  }
+  .map-legend .mf .dot{background:var(--c);color:var(--c)}
+  .map-legend .mf.active{border-color:var(--c);color:#fff;box-shadow:inset 0 0 0 1px var(--c)}
+  .map-legend .mf:not(.active){opacity:.42}
+  .map-legend .mf:not(.active) .dot{filter:grayscale(1)}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px rgba(255,255,255,.15),0 0 9px currentColor}
+  #map{
+    height:70vh;min-height:420px;
+    border-radius:22px;
+    border:1px solid var(--line2);
+    box-shadow:0 20px 60px rgba(0,0,0,.55);
+    overflow:hidden;
+    background:#0e1116;
+  }
+
+  footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px 16px 50px}
+  .hidden{display:none}
+
+  /* ---- Listado lateral del mapa ---- */
+  .map-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  #map-list{display:flex;flex-direction:column;gap:8px}
+  .ml-item{
+    display:flex;gap:11px;align-items:flex-start;
+    padding:11px 12px;border:1px solid var(--line);border-radius:13px;
+    background:var(--glass);cursor:pointer;transition:.15s ease;
+  }
+  .ml-item:hover{border-color:var(--c);background:var(--glass-strong)}
+  .ml-item .ml-dot{margin-top:5px;width:11px;height:11px;border-radius:50%;flex:0 0 auto;
+    background:var(--c);box-shadow:0 0 8px var(--c)}
+  .ml-item h4{font-family:var(--display);font-size:.98rem;margin:0;color:#fff;font-weight:600}
+  .ml-item p{margin:2px 0 0;font-size:.83rem;color:var(--muted);line-height:1.35}
+  .ml-item.hidden{display:none}
+  @media(min-width:980px){
+    .map-grid{grid-template-columns:minmax(0,1fr) 360px}
+    #map{height:74vh}
+    #map-list{height:74vh;overflow-y:auto;padding-right:4px;scrollbar-width:thin}
+  }
+
+  /* ---- Mapa bajo el nav + controles de base ---- */
+  .map-stage{max-width:1240px;margin:6px auto 0;padding:0 16px}
+  .map-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 12px}
+  .map-tools .mt{font-family:var(--display);font-weight:600;font-size:.85rem;cursor:pointer;color:var(--ink);
+    background:var(--glass);border:1px solid var(--line2);border-radius:999px;padding:8px 14px;transition:.15s}
+  .map-tools .mt:hover{border-color:var(--lime);color:#fff}
+  .map-tools .mt.active{background:linear-gradient(120deg,var(--lime),var(--lime-d));color:#0a0c0f;border-color:transparent}
+  .mt-sep{width:1px;height:22px;background:var(--line2);margin:0 2px}
+  .map-tools .open-now{font-family:var(--display);font-weight:700;font-size:.85rem;cursor:pointer;
+    color:var(--lime);background:rgba(163,230,53,.1);border:1px solid rgba(163,230,53,.4);
+    border-radius:999px;padding:8px 15px;transition:.15s}
+  .map-tools .open-now:hover{background:rgba(163,230,53,.18)}
+  .map-tools .open-now.on{background:linear-gradient(120deg,var(--lime),var(--lime-d));color:#0a0c0f;border-color:transparent;
+    box-shadow:0 6px 18px rgba(163,230,53,.3)}
+
+  /* ---- Galería de puntos de interés ---- */
+  .poi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px}
+  .poi-tile{background:var(--glass);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    cursor:pointer;transition:.18s ease;display:flex;flex-direction:column}
+  .poi-tile:hover{transform:translateY(-3px);border-color:var(--c);background:var(--glass-strong);box-shadow:0 14px 40px rgba(0,0,0,.45)}
+  .poi-tile.hidden{display:none}
+  .poi-top{display:flex;align-items:center;gap:11px;padding:14px 15px;border-bottom:1px solid var(--line);
+    background:linear-gradient(135deg,rgba(255,255,255,.03),transparent)}
+  .poi-emoji{width:42px;height:42px;flex:0 0 auto;border-radius:12px;display:grid;place-items:center;
+    font-size:1.35rem;background:var(--c);box-shadow:0 8px 18px -6px var(--c)}
+  .poi-cat{font-family:var(--display);font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+  .poi-body{padding:13px 15px 15px;display:flex;flex-direction:column;flex:1}
+  .poi-body h4{font-family:var(--display);font-weight:600;font-size:1.02rem;margin:0 0 4px;color:#fff}
+  .poi-body p{margin:0 0 12px;font-size:.85rem;color:var(--muted);line-height:1.4;flex:1}
+  .poi-actions{display:flex;gap:8px;align-items:center;justify-content:space-between}
+  .poi-map{font-family:var(--display);font-size:.78rem;font-weight:600;cursor:pointer;color:var(--ink);
+    background:rgba(255,255,255,.06);border:1px solid var(--line2);border-radius:9px;padding:7px 10px}
+  .poi-map:hover{border-color:var(--c);color:#fff}
+  .poi-go{font-family:var(--display);font-size:.78rem;font-weight:600;text-decoration:none;color:var(--cyan);white-space:nowrap}
+  .poi-go:hover{text-decoration:underline}
+  /* En ordenador: galería en fila horizontal con scroll */
+  @media(min-width:980px){
+    .poi-grid{display:flex;overflow-x:auto;gap:14px;padding-bottom:12px;scroll-snap-type:x proximity;scrollbar-width:thin}
+    .poi-tile{flex:0 0 248px;scroll-snap-align:start}
+  }
+
+  /* ---- Tira de personas (animada) ---- */
+  .people-strip{max-width:1240px;margin:6px auto 0;padding:0 16px 8px}
+  .pstrip-view{overflow:hidden}
+  .pstrip-track{display:flex;gap:12px;will-change:transform}
+  .pstrip-track:hover{animation-play-state:paused}
+  .pstrip-track .person{width:158px;flex:0 0 auto}
+  .pstrip-track .person .pimg,.pstrip-track .person .pava{height:118px}
+  .pstrip-track .person .pbody{padding:9px 11px 11px}
+  .pstrip-track .person .pname{font-size:.92rem}
+  .pstrip-track .person .prole{font-size:.54rem}
+  .pstrip-track .person .pquote{font-size:.72rem;-webkit-line-clamp:2}
+  /* móvil: vertical */
+  .pstrip-view{max-height:470px;
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);
+            mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent)}
+  .pstrip-track{flex-direction:column;align-items:center;animation:scrollY 26s linear infinite}
+  @media(min-width:980px){
+    .pstrip-view{max-height:none;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+              mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+    .pstrip-track{flex-direction:row;align-items:stretch;animation:scrollX 45s linear infinite}
+  }
+  @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---- Cabecera con carruseles de personas ---- */
+  .hero{position:relative;overflow:hidden}
+  .carousel{display:none}
+  .person{
+    width:208px;flex:0 0 auto;background:var(--glass);
+    border:1px solid var(--line);border-radius:15px;overflow:hidden;
+  }
+  .person .pimg{width:100%;height:172px;object-fit:cover;display:block;background:#11151b;
+    filter:grayscale(1) contrast(1.05) brightness(.95)}
+  .person .pava{width:100%;height:172px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:700;font-size:2.1rem;color:#0a0c0f;
+    background:linear-gradient(135deg,var(--lime),var(--cyan))}
+  .person .pbody{padding:11px 13px 13px}
+  .person .prole{font-family:var(--display);letter-spacing:.2em;text-transform:uppercase;
+    font-size:.58rem;color:var(--lime);margin-bottom:5px}
+  .person .pname{font-family:var(--display);font-weight:700;font-size:1.05rem;color:#fff;line-height:1.05}
+  .person .pquote{font-size:.79rem;color:var(--muted);font-style:italic;margin:7px 0 9px;line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .person .ptags{font-family:var(--display);font-size:.6rem;letter-spacing:.1em;color:#8a93a3;text-transform:uppercase}
+  @media(min-width:1120px){
+    .carousel{display:block;position:absolute;top:0;bottom:0;width:224px;z-index:1;overflow:hidden;
+      -webkit-mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+              mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent)}
+    .carousel.left{left:16px}
+    .carousel.right{right:16px}
+    .ctrack{display:flex;flex-direction:column;gap:14px;padding:8px 0;animation:scrollY 28s linear infinite}
+    .carousel.right .ctrack{animation-duration:35s;animation-direction:reverse}
+    .carousel:hover .ctrack{animation-play-state:paused}
+    .hero{min-height:600px;display:flex;align-items:center}
+    .hero header{flex:1 1 auto;padding-left:252px;padding-right:252px}
+  }
+  @keyframes scrollY{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+
+  /* ---- Asistente del viaje ---- */
+  #asis-btn{position:fixed;right:18px;bottom:84px;z-index:60;width:54px;height:54px;border-radius:50%;
+    border:none;cursor:pointer;font-size:1.45rem;color:#0a0c0f;
+    background:linear-gradient(135deg,var(--lime),var(--cyan));
+    box-shadow:0 10px 26px rgba(163,230,53,.32);transition:.18s}
+  #asis-btn:hover{transform:translateY(-2px) scale(1.04)}
+  #asis-panel{position:fixed;right:18px;bottom:148px;z-index:61;
+    width:360px;max-width:calc(100vw - 36px);height:min(64vh,520px);
+    background:rgba(12,15,20,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line2);border-radius:18px;overflow:hidden;
+    display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  #asis-panel.open{display:flex}
+  .asis-head{display:flex;align-items:center;justify-content:space-between;
+    padding:12px 14px;border-bottom:1px solid var(--line);
+    font-family:var(--display);font-weight:600;color:#fff}
+  .asis-head button{background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;line-height:1}
+  .asis-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .asis-msg{max-width:90%;padding:10px 12px;border-radius:13px;font-size:.9rem;line-height:1.45}
+  .asis-msg.user{align-self:flex-end;background:linear-gradient(135deg,var(--lime),var(--lime-d));color:#0a0c0f;font-weight:500}
+  .asis-msg.bot{align-self:flex-start;background:var(--glass-strong);border:1px solid var(--line);color:#e7ecf2}
+  .asis-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .asis-chip{display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+    font-size:.8rem;font-weight:600;color:#dfe5ee;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+  .asis-chip i{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 7px var(--c)}
+  .asis-chip:hover{border-color:var(--c);color:#fff}
+  .asis-ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .asis-ex button{font-size:.78rem;color:var(--cyan);background:rgba(56,189,248,.12);
+    border:1px solid rgba(56,189,248,.3);border-radius:999px;padding:5px 10px;cursor:pointer}
+  .asis-ex button:hover{background:rgba(56,189,248,.22)}
+  .asis-note{margin-top:7px;font-size:.82rem;color:var(--muted);font-style:italic}
+  .asis-inputbar{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+  .asis-inputbar input{flex:1;background:rgba(255,255,255,.06);border:1px solid var(--line2);
+    border-radius:11px;padding:10px 12px;color:#fff;font-size:.9rem;font-family:var(--body);outline:none}
+  .asis-inputbar input:focus{border-color:var(--lime)}
+  .asis-inputbar button{background:linear-gradient(135deg,var(--lime),var(--cyan));color:#0a0c0f;
+    border:none;border-radius:11px;width:44px;font-size:1rem;cursor:pointer;font-weight:700}
+
+  /* ---- Ticker Mundial 2026 (siempre visible) ---- */
+  #wc-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    width:100%;box-sizing:border-box;
+    display:flex;align-items:center;gap:12px;
+    padding:10px 18px;
+    background:rgba(8,9,12,.88);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-top:1px solid var(--line2);
+    box-shadow:0 -12px 34px rgba(0,0,0,.55);
+    font-size:.86rem;
+  }
+  #wc-bar .wc-badge{
+    font-family:var(--display);font-weight:700;color:var(--lime);
+    display:flex;align-items:center;gap:6px;flex:0 0 auto;
+  }
+  #wc-bar .wc-info{
+    flex:1 1 auto;overflow-x:auto;white-space:nowrap;
+    scrollbar-width:none;color:#dfe5ee;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%);
+            mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%);
+  }
+  #wc-bar .wc-info::-webkit-scrollbar{display:none}
+  #wc-bar .wc-info .sc{font-family:var(--display);font-weight:700;color:#fff}
+  #wc-bar .wc-info .live{color:var(--red);font-weight:700}
+  #wc-bar a.wc-cal{
+    flex:0 0 auto;text-decoration:none;font-family:var(--display);font-weight:600;font-size:.82rem;
+    background:rgba(56,189,248,.16);color:var(--cyan);
+    border:1px solid rgba(56,189,248,.3);padding:8px 12px;border-radius:11px;
+  }
+  #wc-bar a.wc-cal:hover{background:rgba(56,189,248,.26)}
+  .live-dot{
+    width:9px;height:9px;border-radius:50%;background:var(--red);
+    display:inline-block;animation:pulse 1.4s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(251,113,133,.55)}
+    70%{box-shadow:0 0 0 8px rgba(251,113,133,0)}
+    100%{box-shadow:0 0 0 0 rgba(251,113,133,0)}
+  }
+
+  /* Google InfoWindow dark tweaks */
+  .gm-style .gm-style-iw-c{background:#11151b !important;border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 40px rgba(0,0,0,.6) !important;padding:0 !important}
+  .gm-style .gm-style-iw-tc::after{background:#11151b !important}
+  .gm-style .gm-style-iw-d{overflow:hidden !important}
+  .gm-style-iw button{filter:invert(1) opacity(.6)}
+  /* Leaflet (fallback) en oscuro */
+  .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#11151b;color:#f3f5f7;border:1px solid rgba(255,255,255,.12)}
+  .leaflet-popup-content{margin:10px 12px}
+  .leaflet-container a.leaflet-popup-close-button{color:#8a93a3}
+  .leaflet-control-attribution{background:rgba(8,9,12,.7) !important;color:#6b7785 !important}
+  .leaflet-control-attribution a{color:#8a93a3 !important}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="carousel left" aria-hidden="true"><div class="ctrack" id="ctrack-l"></div></div>
+  <div class="carousel right" aria-hidden="true"><div class="ctrack" id="ctrack-r"></div></div>
+  <header>
+    <div class="eyebrow">Asturias · 2026</div>
+    <h1>De bares por <span class="glow">Gijón</span>, y lo que surja.</h1>
+  </header>
+</div>
+
+<nav id="nav">
+  <button data-target="todos" class="active">🗺️ Todos</button>
+  <button data-target="restaurantes">🍽️ Restaurantes</button>
+  <button data-target="bares">🍸 Bares</button>
+  <button data-target="pubs">🍺 Pubs</button>
+  <button data-target="playas">🏖️ Playas</button>
+  <button data-target="alojamiento">🏠 Alojamiento</button>
+</nav>
+
+<!-- Mapa justo debajo de los botones (filtrado por el nav) -->
+<div class="map-stage">
+  <div class="map-tools">
+    <button class="open-now" id="open-now" type="button">🕐 ¿Qué hay abierto ahora?</button>
+    <span class="mt-sep"></span>
+    <button class="mt active" data-base="map" type="button">🗺️ Mapa</button>
+    <button class="mt" data-base="sat" type="button">🛰️ Satélite</button>
+  </div>
+  <div id="map"></div>
+</div>
+
+<main>
+
+  <!-- ============ COMER ============ -->
+  <section id="restaurantes">
+    <div class="section-title"><span class="em">🍽️</span> Restaurantes</div>
+    <div class="section-sub">De más económico a más formal. Casi todo cerca del centro / Cimadevilla.</div>
+
+    <div class="card">
+      <h3>Tierra Astur Poniente</h3>
+      <div class="tags">
+        <span class="tag price">€ Económico</span>
+        <span class="tag">🍴 Cenar</span>
+        <span class="tag">🍏 Barra libre de sidra</span>
+      </div>
+      <p>Más para turistas, pero está bien: buena comida y decoración asturiana. Ideal para <strong>cenar y calentar motores</strong>. La barra libre de sidra es un plus 😄</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Tierra+Astur+Poniente+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Mesón Sancho</h3>
+      <div class="tags">
+        <span class="tag price">€ Económico</span>
+        <span class="tag">🍴 Cenar</span>
+      </div>
+      <p>Junto con Tierra Astur, de los más baratos de la lista. Buena opción para ir sobre seguro.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Mes%C3%B3n+Sancho+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Mamaguaja <span class="tag fav">⭐ Favorito</span></h3>
+      <div class="tags">
+        <span class="tag price">€€ ~40 (máx 50)</span>
+        <span class="tag">🍴 Comer</span>
+      </div>
+      <p>De precio algo más alto (~40€; si no pedís bogavante o cosas así, no debería pasar de 50). Mejor para <strong>comer</strong>. A nosotros nos gusta bastante.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Mamaguaja+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Restaurante Zabala (antiguo) <span class="tag fav">⭐ Recomendado</span></h3>
+      <div class="tags">
+        <span class="tag price">€€ ~40 (máx 50)</span>
+        <span class="tag">🐟 Pescado</span>
+        <span class="tag">📍 Cimadevilla</span>
+      </div>
+      <p>En Cimadevilla. Para <strong>pescados y demás</strong> tiene muy buen producto y cocinan muy bien. Gran opción para comer bien.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Zabala+Cimadevilla+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>El Recetario de Alex San Pedro</h3>
+      <div class="tags">
+        <span class="tag price">€€ 35–40</span>
+        <span class="tag">🍷 Más formal</span>
+        <span class="tag">📍 Muy cerca</span>
+      </div>
+      <p>Se come bien y os queda muy cerca. Un punto más <strong>formal</strong>. Precio sobre 35–40€.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=El+Recetario+de+Alex+San+Pedro+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="sub-head"><span>🍔</span> Algo diferente</div>
+
+    <div class="card">
+      <h3>Berty's Burger</h3>
+      <div class="tags">
+        <span class="tag">🍔 Hamburguesas</span>
+        <span class="tag">📍 Cerca de todo</span>
+      </div>
+      <p>Si os apetece hamburguesa, están muy bien. Y os queda cerca de todo.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Berty%27s+Burger+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Carbone</h3>
+      <div class="tags">
+        <span class="tag">🍝 Italiano</span>
+        <span class="tag">⚓ Puerto</span>
+      </div>
+      <p>Italiano, en el puerto. Buena opción para variar de cocina asturiana.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Carbone+restaurante+puerto+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BARES ============ -->
+  <section id="bares" class="hidden">
+    <div class="section-title"><span class="em">🍸</span> Bares</div>
+    <div class="section-sub">Vinos, vermut y tardeo. Todo cae muy cerca entre sí.</div>
+
+    <div class="sub-head"><span>🍇</span> Zonas de vinos (desde las 19:00)</div>
+
+    <div class="card">
+      <h3>Ruta de los Vinos</h3>
+      <div class="tags"><span class="tag">🍷 Vinos</span><span class="tag">📍 Muy cerca</span></div>
+      <p>Para empezar la tarde desde las 7 o así. Os pilla muy cerca.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Ruta+de+los+Vinos+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>La Cuesta del Cholo</h3>
+      <div class="tags"><span class="tag">🍷 Vinos</span><span class="tag">🍹 Vermut</span><span class="tag">☀️ Si no llueve</span><span class="tag">📍 Muy cerca</span></div>
+      <p>Alternativa a la ruta de los vinos, también muy cerca. Mejor <strong>si no llueve</strong> (es de calle). También va muy bien para el <strong>vermut</strong>.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Cuesta+del+Cholo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="sub-head"><span>🍸</span> Vermut</div>
+
+    <div class="card">
+      <h3>La Casona de Jovellanos</h3>
+      <div class="tags"><span class="tag">🍹 Vermut</span><span class="tag">📍 Cimadevilla</span></div>
+      <p>En Cimadevilla. Buen sitio para el <strong>vermut</strong>.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=La+Casona+de+Jovellanos+Cimadevilla+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>La Cuesta del Cholo</h3>
+      <div class="tags"><span class="tag">🍹 Vermut</span><span class="tag">📍 Muy cerca</span></div>
+      <p>También de las mejores para el vermut (ver arriba, en zona de vinos).</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Cuesta+del+Cholo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="sub-head"><span>🍹</span> Tardeo</div>
+
+    <div class="card">
+      <h3>Gabbana</h3>
+      <div class="tags"><span class="tag">🍹 Tardeo</span></div>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Gabbana+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Perro Viejo</h3>
+      <div class="tags"><span class="tag">🍹 Tardeo</span></div>
+      <p class="note">Aquí os sentiréis los más jóvenes… jajaja</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Perro+Viejo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Buda</h3>
+      <div class="tags"><span class="tag">🍹 Tardeo</span></div>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Buda+bar+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ PUBS ============ -->
+  <section id="pubs" class="hidden">
+    <div class="section-title"><span class="em">🍺</span> Pubs &amp; Copas</div>
+    <div class="section-sub">Para la noche: copas, cócteles y fiesta.</div>
+
+    <div class="sub-head"><span>🍸</span> Cócteles &amp; copas</div>
+
+    <div class="card">
+      <h3>El Varsovia <span class="tag fav">⭐ Con vistas</span></h3>
+      <div class="tags"><span class="tag">🍸 Cócteles</span><span class="tag">🌅 Vistas a San Lorenzo</span></div>
+      <p>Muy way, bien decorado y con <strong>vistas a la playa de San Lorenzo</strong>. Ponen buenas copas.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=El+Varsovia+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>San Telmo</h3>
+      <div class="tags"><span class="tag">🍸 Cócteles</span><span class="tag">📍 Cerca</span></div>
+      <p>Unos cócteles muy buenos, y cerca de todo.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=San+Telmo+coctel%C3%ADa+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="sub-head"><span>🎉</span> Fiesta</div>
+
+    <div class="card">
+      <h3>Metrópoli Gijón <span class="tag hot">🔥 Empieza el viernes</span></h3>
+      <div class="tags">
+        <span class="tag">🎤 Conciertos + fiesta</span>
+        <span class="tag price">~10 €</span>
+        <span class="tag">🕓 Hasta las 4:00</span>
+      </div>
+      <p>En la <strong>Feria de Muestras</strong> (al final de la playa de San Lorenzo). Por unos 10€ tienes conciertos y luego fiesta con pinchadiscos. Abre hasta las 4 de la mañana. Está guay.</p>
+      <div class="actions">
+        <a class="a-web" href="https://metropoligijon.com/" target="_blank">🌐 Web oficial</a>
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Recinto+Ferial+Luis+Adaro+Feria+de+Muestras+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card" style="border:1px dashed rgba(255,255,255,.18);background:transparent">
+      <h3>¿Algún pub fijo?</h3>
+      <p class="note">Decidme los pubs que queráis y los añado aquí, con su punto en el mapa.</p>
+    </div>
+  </section>
+
+  <!-- ============ PLAYAS ============ -->
+  <section id="playas" class="hidden">
+    <div class="section-title"><span class="em">🏖️</span> Playas</div>
+    <div class="section-sub">De la playa urbana a las de los alrededores.</div>
+
+    <div class="card">
+      <h3>Playa de San Lorenzo <span class="tag fav">⭐ La principal</span></h3>
+      <div class="tags"><span class="tag">🏙️ En el centro</span><span class="tag">🌊 ~1,5 km de arena</span></div>
+      <p>La playa urbana por excelencia, en forma de concha y con el <strong>paseo del Muro</strong>. Justo en el centro, al lado de casi todo.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+de+San+Lorenzo+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Playa de Poniente</h3>
+      <div class="tags"><span class="tag">⚓ Junto al puerto</span><span class="tag">😌 Resguardada</span></div>
+      <p>Al otro lado de Cimadevilla, junto al puerto deportivo y el Acuario. Más tranquila y resguardada del viento.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+de+Poniente+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Playa del Arbeyal</h3>
+      <div class="tags"><span class="tag">📍 La Calzada (oeste)</span><span class="tag">🏘️ Ambiente local</span></div>
+      <p>En el barrio de La Calzada, al oeste. Menos turística, más de gente de Gijón.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+del+Arbeyal+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Playa de La Ñora</h3>
+      <div class="tags"><span class="tag">🌲 A las afueras (este)</span><span class="tag">🚗 ~10 min en coche</span></div>
+      <p>Saliendo de la ciudad hacia el este, entre verde y un ambiente más natural. Buena escapada si hace bueno.</p>
+      <div class="actions">
+        <a class="a-map" href="https://www.google.com/maps/search/?api=1&query=Playa+de+La+%C3%91ora+Gij%C3%B3n" target="_blank">📍 Mapa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ALOJAMIENTO ============ -->
+  <section id="alojamiento" class="hidden">
+    <div class="section-title"><span class="em">🏠</span> Alojamiento</div>
+    <div class="section-sub">Vuestra base del viaje.</div>
+
+    <div class="card" style="border:1px dashed rgba(255,255,255,.18);background:transparent">
+      <h3>Aún sin definir</h3>
+      <p class="note">Pásame la <strong>dirección</strong> y añado el punto en el mapa, cómo llegar y qué tenéis cerca andando.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ MAPA (siempre visible) ============ -->
+<div class="map-wrap">
+  <div class="section-title"><span class="em">📸</span> Puntos de interés</div>
+  <div class="poi-grid" id="poi-grid"></div>
+</div>
+
+<div class="people-strip">
+  <div class="section-title"><span class="em">👥</span> Los del viaje</div>
+  <div class="pstrip-view"><div class="pstrip-track" id="pstrip-track"></div></div>
+</div>
+
+<footer>
+  Guía hecha a mano para el viaje 🍎 · Toca un pin para abrir Google Maps
+</footer>
+
+<!-- ===== Ticker Mundial 2026 (siempre visible) ===== -->
+<div id="wc-bar">
+  <span class="wc-badge">⚽ Mundial 26</span>
+  <span class="wc-info" id="wc-info">Cargando partidos…</span>
+  <a class="wc-cal" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures" target="_blank">📅 Calendario</a>
+</div>
+
+<!-- ===== Asistente del viaje ===== -->
+<button id="asis-btn" aria-label="Abrir asistente">💬</button>
+<div id="asis-panel" role="dialog" aria-label="Asistente del viaje">
+  <div class="asis-head"><span>🤖 Asistente del viaje</span><button id="asis-close" aria-label="Cerrar">✕</button></div>
+  <div class="asis-msgs" id="asis-msgs"></div>
+  <form class="asis-inputbar" id="asis-form">
+    <input id="asis-input" type="text" placeholder="¿Dónde ceno barato? ¿bares de vermut?" autocomplete="off">
+    <button type="submit" aria-label="Enviar">➤</button>
+  </form>
+</div>
+
+<script>
+  // --- Tabs de secciones ---
+  const buttons = document.querySelectorAll('#nav button');
+  const sections = {
+    restaurantes: document.getElementById('restaurantes'),
+    bares: document.getElementById('bares'),
+    pubs: document.getElementById('pubs'),
+    playas: document.getElementById('playas'),
+    alojamiento: document.getElementById('alojamiento'),
+  };
+  const SEC2CAT = {restaurantes:'restaurante', bares:'bar', pubs:'pub', playas:'playa', alojamiento:'alojamiento'};
+  let activeCat = 'all';   // 'all' | categoría del mapa
+  function setCat(target){
+    buttons.forEach(b=>b.classList.toggle('active', b.dataset.target===target));
+    if(target==='todos'){
+      Object.values(sections).forEach(s=>s.classList.remove('hidden'));
+      activeCat = 'all';
+    } else {
+      Object.entries(sections).forEach(([id,el])=>el.classList.toggle('hidden', id!==target));
+      activeCat = SEC2CAT[target] || 'all';
+    }
+    applyMapFilter();
+  }
+  buttons.forEach(btn=>btn.addEventListener('click', ()=>setCat(btn.dataset.target)));
+
+  // --- Datos del mapa ---
+  const COLORS = {restaurante:'#fb7185', bar:'#38bdf8', pub:'#a78bfa', playa:'#2dd4bf', alojamiento:'#fcd34d'};
+  const CATLABEL = {restaurante:'Restaurante', bar:'Bar', pub:'Pub', playa:'Playa', alojamiento:'Alojamiento'};
+  const PLACES = [
+    {n:'Tierra Astur Poniente', c:'restaurante', lat:43.5455, lng:-5.6700, q:'Tierra Astur Poniente Gijón', d:'Cenar asturiano + barra libre de sidra. Económico.', h:[[1200,2400]]},
+    {n:'Mesón Sancho',          c:'restaurante', lat:43.5440, lng:-5.6620, q:'Mesón Sancho Gijón', d:'De los más baratos. Para ir sobre seguro.', h:[[1300,1600],[2000,2330]]},
+    {n:'Mamaguaja',             c:'restaurante', lat:43.5448, lng:-5.6635, q:'Mamaguaja Gijón', d:'Favorito. ~40€, mejor para comer.', h:[[1330,1600],[2030,2330]]},
+    {n:'Restaurante Zabala',    c:'restaurante', lat:43.5478, lng:-5.6595, q:'Restaurante Zabala Cimadevilla Gijón', d:'Cimadevilla. Pescado de muy buen producto.', h:[[1300,1600],[2030,2330]]},
+    {n:'El Recetario de Alex San Pedro', c:'restaurante', lat:43.5440, lng:-5.6600, q:'El Recetario de Alex San Pedro Gijón', d:'Más formal, muy cerca. 35–40€.', h:[[1330,1600],[2030,2300]]},
+    {n:"Berty's Burger",        c:'restaurante', lat:43.5430, lng:-5.6625, q:"Berty's Burger Gijón", d:'Hamburguesas muy buenas, céntrico.', h:[[1300,1630],[2000,2330]]},
+    {n:'Carbone',               c:'restaurante', lat:43.5452, lng:-5.6655, q:'Carbone restaurante puerto Gijón', d:'Italiano en el puerto.', h:[[1300,1600],[2030,2330]]},
+    {n:'Ruta de los Vinos',     c:'bar', lat:43.5465, lng:-5.6600, q:'Ruta de los Vinos Gijón', d:'Vinos desde las 19:00, muy cerca.', h:[[1200,1600],[1900,100]]},
+    {n:'La Cuesta del Cholo',   c:'bar', lat:43.5470, lng:-5.6585, q:'Cuesta del Cholo Gijón', d:'Vinos y vermut de calle (si no llueve).', h:[[1200,1600],[1900,2400]]},
+    {n:'La Casona de Jovellanos', c:'bar', lat:43.5475, lng:-5.6588, q:'La Casona de Jovellanos Cimadevilla Gijón', d:'Vermut en Cimadevilla.', h:[[1200,1600],[1900,2330]]},
+    {n:'Gabbana',               c:'bar', lat:43.5435, lng:-5.6615, q:'Gabbana Gijón', d:'Tardeo.', h:[[1700,200]]},
+    {n:'Perro Viejo',           c:'bar', lat:43.5438, lng:-5.6608, q:'Perro Viejo Gijón', d:'Tardeo (os sentiréis los más jóvenes…).', h:[[1800,230]]},
+    {n:'Buda',                  c:'bar', lat:43.5442, lng:-5.6612, q:'Buda bar Gijón', d:'Tardeo.', h:[[1700,200]]},
+    {n:'El Varsovia',           c:'pub', lat:43.5462, lng:-5.6520, q:'El Varsovia Gijón', d:'Cócteles con vistas a San Lorenzo.', h:[[1800,300]]},
+    {n:'San Telmo',             c:'pub', lat:43.5468, lng:-5.6598, q:'San Telmo coctelería Gijón', d:'Buenos cócteles, céntrico.', h:[[1900,330]]},
+    {n:'Metrópoli (Feria de Muestras)', c:'pub', lat:43.5345, lng:-5.6370, q:'Recinto Ferial Luis Adaro Feria de Muestras Gijón', d:'Conciertos + fiesta hasta las 4. ~10€.', h:[[2000,400]]},
+    {n:'Playa de San Lorenzo',  c:'playa', lat:43.5447, lng:-5.6500, q:'Playa de San Lorenzo Gijón', d:'La playa urbana, en pleno centro.', h:[[700,2300]]},
+    {n:'Playa de Poniente',     c:'playa', lat:43.5440, lng:-5.6760, q:'Playa de Poniente Gijón', d:'Junto al puerto, resguardada.', h:[[700,2300]]},
+    {n:'Playa del Arbeyal',     c:'playa', lat:43.5495, lng:-5.6960, q:'Playa del Arbeyal Gijón', d:'La Calzada (oeste), ambiente local.', h:[[700,2300]]},
+    {n:'Playa de La Ñora',      c:'playa', lat:43.5318, lng:-5.5835, q:'Playa de La Ñora Gijón', d:'A las afueras (este), entre verde.', h:[[700,2300]]},
+  ];
+
+  const DARK_STYLE = [
+    {elementType:'geometry',stylers:[{color:'#0e1116'}]},
+    {elementType:'labels.text.stroke',stylers:[{color:'#0e1116'}]},
+    {elementType:'labels.text.fill',stylers:[{color:'#8a93a3'}]},
+    {featureType:'poi',stylers:[{visibility:'off'}]},
+    {featureType:'transit',stylers:[{visibility:'off'}]},
+    {featureType:'road',elementType:'geometry',stylers:[{color:'#222a35'}]},
+    {featureType:'road',elementType:'labels.text.fill',stylers:[{color:'#6b7785'}]},
+    {featureType:'road.highway',elementType:'geometry',stylers:[{color:'#2c3645'}]},
+    {featureType:'water',elementType:'geometry',stylers:[{color:'#0a2536'}]},
+    {featureType:'water',elementType:'labels.text.fill',stylers:[{color:'#38bdf8'}]},
+    {featureType:'administrative',elementType:'geometry',stylers:[{color:'#2a323d'}]},
+    {featureType:'landscape.natural',elementType:'geometry',stylers:[{color:'#12161c'}]}
+  ];
+
+  // ===== Mapa: Google Maps con fallback automático a Leaflet (gratis, sin clave) =====
+  const GMAPS_KEY = 'AIzaSyBcnRn-05dT_64cJaNeJ90n50n-5n_doKQ';
+  let activeMap = null;            // 'google' | 'leaflet'
+  let gmap = null, lmap = null;
+  let mapGroups = {};              // cat -> [ {name,cat,lat,lng,setVisible(on),open()} ]
+  let markerIndex = {};            // nombre -> wrapper
+  let fellBack = false;
+  let lTile = null, baseMode = 'map', openNow = false;
+  const LTILES = {
+    map:{url:'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', attr:'© OpenStreetMap, © CARTO'},
+    sat:{url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr:'Imagery © Esri'}
+  };
+  const placeByName = Object.fromEntries(PLACES.map(p=>[p.n,p]));
+
+  const gLink = p => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q);
+  const popupHTML = p =>
+    '<div style="font-family:Inter,sans-serif;min-width:150px;color:#f3f5f7;padding:2px 2px">'+
+    '<b style="font-size:1rem;color:#fff">'+p.n+'</b><br>'+
+    '<span style="font-size:.76rem;color:'+COLORS[p.c]+'">'+CATLABEL[p.c]+'</span><br>'+
+    '<a href="'+gLink(p)+'" target="_blank" style="display:inline-block;margin-top:8px;'+
+    'background:#38bdf8;color:#06121b;text-decoration:none;font-weight:700;'+
+    'font-size:.82rem;padding:7px 12px;border-radius:9px">📍 Cómo llegar</a></div>';
+
+  // ---- Google ----
+  function loadGoogle(){
+    window.__gmapReady = buildGoogle;
+    window.gm_authFailure = useLeaflet;      // Google llama a esto si la key/API falla
+    const s = document.createElement('script');
+    s.src = 'https://maps.googleapis.com/maps/api/js?key='+GMAPS_KEY+'&callback=__gmapReady';
+    s.async = true; s.defer = true;
+    s.onerror = useLeaflet;
+    document.head.appendChild(s);
+    setTimeout(()=>{ if(activeMap!=='google') useLeaflet(); }, 5000); // red guard
+  }
+  function buildGoogle(){
+    if(activeMap || fellBack) return;
+    gmap = new google.maps.Map(document.getElementById('map'),{
+      center:{lat:43.5455,lng:-5.6585}, zoom:14,
+      mapTypeControl:false, streetViewControl:false, fullscreenControl:true,
+      styles:DARK_STYLE, backgroundColor:'#0e1116'
+    });
+    const iw = new google.maps.InfoWindow();
+    mapGroups = {}; markerIndex = {};
+    PLACES.forEach(p=>{
+      const m = new google.maps.Marker({
+        position:{lat:p.lat,lng:p.lng}, map:gmap, title:p.n,
+        icon:{ path:google.maps.SymbolPath.CIRCLE, scale:8,
+               fillColor:COLORS[p.c], fillOpacity:1, strokeColor:'#0e1116', strokeWeight:2.5 }
+      });
+      m.addListener('click',()=>{ iw.setContent(popupHTML(p)); iw.open(gmap,m); });
+      const w = {name:p.n, cat:p.c, lat:p.lat, lng:p.lng,
+        setVisible:on=>m.setMap(on?gmap:null),
+        open:()=>{ gmap.panTo(m.getPosition()); if(gmap.getZoom()<15) gmap.setZoom(15);
+                   google.maps.event.trigger(m,'click'); }};
+      (mapGroups[p.c]=mapGroups[p.c]||[]).push(w); markerIndex[p.n]=w;
+    });
+    activeMap='google';
+    applyMapFilter();
+    // Si Google no consigue pintar tiles (p.ej. ApiNotActivated), cae a Leaflet
+    let gok=false;
+    google.maps.event.addListenerOnce(gmap,'tilesloaded',()=>{ gok=true; });
+    setTimeout(()=>{ if(!gok && activeMap==='google'){ activeMap=null; useLeaflet(); } }, 3500);
+  }
+
+  // ---- Leaflet (fallback) ----
+  function useLeaflet(){
+    if(fellBack || activeMap==='leaflet') return;
+    fellBack = true;
+    const el = document.getElementById('map'); el.innerHTML='';   // borra el aviso de error de Google
+    if(!document.getElementById('leaflet-css')){
+      const lk=document.createElement('link'); lk.id='leaflet-css'; lk.rel='stylesheet';
+      lk.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(lk);
+    }
+    const start=()=>{
+      lmap = L.map('map').setView([43.5455,-5.6585],14);
+      const t0 = LTILES[baseMode==='sat'?'sat':'map'];
+      lTile = L.tileLayer(t0.url, {maxZoom:19, attribution:t0.attr}).addTo(lmap);
+      mapGroups={}; markerIndex={};
+      PLACES.forEach(p=>{
+        const mk=L.circleMarker([p.lat,p.lng],{radius:8,color:'#0e1116',weight:2,
+          fillColor:COLORS[p.c],fillOpacity:1}).bindPopup(popupHTML(p));
+        mk.addTo(lmap);
+        const w = {name:p.n, cat:p.c, lat:p.lat, lng:p.lng,
+          setVisible:on=>{ on?mk.addTo(lmap):mk.remove(); },
+          open:()=>{ if(!lmap.hasLayer(mk)) mk.addTo(lmap);
+                     lmap.setView([p.lat,p.lng], Math.max(lmap.getZoom(),15)); mk.openPopup(); }};
+        (mapGroups[p.c]=mapGroups[p.c]||[]).push(w); markerIndex[p.n]=w;
+      });
+      activeMap='leaflet';
+      applyMapFilter();
+      // reajusta cuando el contenedor ya tiene su tamaño final (evita zoom mal calculado)
+      setTimeout(()=>{ lmap.invalidateSize(); applyMapFilter(); }, 250);
+    };
+    if(window.L) start();
+    else{ const s=document.createElement('script');
+      s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'; s.onload=start; document.head.appendChild(s); }
+  }
+
+  // ---- Filtro común (Google o Leaflet) ----
+  function fitPts(pts){
+    if(!pts.length) return;
+    if(activeMap==='google'){ const b=new google.maps.LatLngBounds();
+      pts.forEach(p=>b.extend({lat:p[0],lng:p[1]})); gmap.fitBounds(b); }
+    else if(activeMap==='leaflet'){ lmap.fitBounds(pts,{padding:[30,30], maxZoom:15}); }
+  }
+  function catOn(cat){ return activeCat==='all' || activeCat===cat; }
+  function isOpenNow(p){
+    if(!p || !p.h || !p.h.length) return false;     // sin horario conocido → no cuenta como "abierto"
+    const d=new Date(); const now=d.getHours()*100+d.getMinutes();
+    return p.h.some(([s,e])=> s<=e ? (now>=s && now<e) : (now>=s || now<e));
+  }
+  function visiblePlace(name, cat){
+    if(!catOn(cat)) return false;
+    if(openNow && !isOpenNow(placeByName[name])) return false;
+    return true;
+  }
+  function applyMapFilter(){
+    // galería
+    document.querySelectorAll('#poi-grid .poi-tile').forEach(it=>{
+      it.classList.toggle('hidden', !visiblePlace(it.dataset.name, it.dataset.cat));
+    });
+    if(!activeMap) return;
+    const pts=[];
+    Object.values(mapGroups).forEach(ws=>{
+      ws.forEach(w=>{ const on=visiblePlace(w.name, w.cat); w.setVisible(on); if(on) pts.push([w.lat,w.lng]); });
+    });
+    fitPts(pts);
+  }
+
+  // --- Galería de puntos de interés (bajo el mapa) ---
+  const CAT_EMOJI = {restaurante:'🍽️', bar:'🍷', pub:'🍸', playa:'🏖️', alojamiento:'🏠'};
+  function renderGallery(){
+    const box = document.getElementById('poi-grid'); if(!box) return;
+    box.innerHTML = PLACES.map(p=>{
+      const g = 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q);
+      return '<div class="poi-tile" data-name="'+escapeHtml(p.n)+'" data-cat="'+p.c+'" style="--c:'+COLORS[p.c]+'">'+
+        '<div class="poi-top"><span class="poi-emoji">'+(CAT_EMOJI[p.c]||'📍')+'</span>'+
+        '<span class="poi-cat">'+CATLABEL[p.c]+'</span></div>'+
+        '<div class="poi-body"><h4>'+escapeHtml(p.n)+'</h4><p>'+escapeHtml(p.d||'')+'</p>'+
+        '<div class="poi-actions"><button class="poi-map" type="button">📍 En el mapa</button>'+
+        '<a class="poi-go" href="'+g+'" target="_blank" rel="noopener">Cómo llegar ▸</a></div></div></div>';
+    }).join('');
+    box.addEventListener('click', e=>{
+      if(e.target.closest('.poi-go')) return;            // deja seguir el enlace
+      const tile = e.target.closest('.poi-tile'); if(tile) asisOpen(tile.dataset.name);
+    });
+  }
+  renderGallery();
+
+  // ---- Controles de base: Mapa / Satélite / 3D ----
+  function markBase(mode){ document.querySelectorAll('.map-tools .mt[data-base]').forEach(b=>b.classList.toggle('active', b.dataset.base===mode)); }
+  function setBase(mode){
+    if(activeMap==='google' && gmap){ gmap.setMapTypeId(mode==='sat'?'hybrid':'roadmap'); }
+    else if(activeMap==='leaflet' && lmap){
+      if(lTile) lmap.removeLayer(lTile);
+      const t = LTILES[mode==='sat'?'sat':'map'];
+      lTile = L.tileLayer(t.url,{maxZoom:19, attribution:t.attr}).addTo(lmap);
+    }
+    baseMode=mode; markBase(mode);
+  }
+  document.querySelectorAll('.map-tools .mt[data-base]').forEach(b=>b.addEventListener('click', ()=>setBase(b.dataset.base)));
+
+  // ---- "¿Qué hay abierto ahora?" (hora real) ----
+  let openNowTimer=null;
+  function refreshOpenBtn(){
+    const b=document.getElementById('open-now'); if(!b) return;
+    b.classList.toggle('on', openNow);
+    b.textContent = openNow ? '🟢 Abierto ahora' : '🕐 ¿Qué hay abierto ahora?';
+  }
+  function toggleOpenNow(){
+    openNow=!openNow; refreshOpenBtn(); applyMapFilter();
+    if(openNow){ openNowTimer = setInterval(()=>{ if(openNow) applyMapFilter(); }, 60000); }
+    else if(openNowTimer){ clearInterval(openNowTimer); openNowTimer=null; }
+  }
+  (function(){ const ob=document.getElementById('open-now'); if(ob){ ob.addEventListener('click', toggleOpenNow); refreshOpenBtn(); } })();
+
+  // Estado inicial: "Todos"
+  setCat('todos');
+
+  // El mapa está siempre visible: se inicializa al cargar.
+  if(document.readyState!=='loading') loadGoogle();
+  else document.addEventListener('DOMContentLoaded', loadGoogle);
+
+  // ===== Carruseles de personas (cabecera) =====
+  // Rellena cada persona: {name, role, quote, tags, img}
+  // 'img' = ruta a la cara recortada (p.ej. 'img/people/juan.jpg'); si está vacío, muestra iniciales.
+  const PEOPLE = [
+    {name:'Diego', role:'Consultor balbardeño', quote:'"Con más km andados por Madrid que los carteros y siempre dispuesto a tomarse la penúltima, como debe ser."', tags:'Gijón 26', img:'img/people/diego.jpg'},
+    {name:'Alex', role:'Pádel pro · beer pro', quote:'"Pelazo histórico, mago de los gilís. Un tipo tranquilo."', tags:'Gijón 26', img:'img/people/alex.jpg'},
+    {name:'Oscar', role:'Jubilado', quote:'"No busques su DNI. No cabían los pantalones naranja en la foto."', tags:'Gijón 26', img:'img/people/oscar.jpg'},
+    {name:'Isaac', role:'Reverso registrado', quote:'"Siempre tarde porque el mundo va deprisa. Con Diego y Alex, no menciones… ¿chupito?"', tags:'Gijón 26', img:'img/people/isaac.jpg'},
+    {name:'Angel', role:'Híbrido gilí–futbolista', quote:'"Una coleta que resiste el paso del tiempo. El cabrón va a aguantar más que tú, y lo sabes."', tags:'Gijón 26', img:'img/people/angel.jpg'},
+    {name:'Paúl', role:'Pre-IA, de los más listos', quote:'"De los más listos… hasta que apareció la IA. Está jodido con eso y piensa que no pienso."', tags:'Gijón 26', img:'img/people/paul.jpg'},
+    {name:'Preciados', role:'Casi ingeniero aeronáutico', quote:'"Poniendo pegas desde 1985. Casi ingeniero aeronáutico, pero sigue con los avioncitos."', tags:'Gijón 26', img:'img/people/preciados.jpg'},
+    {name:'Manu', role:'El organizador', quote:'"Sin él no iríamos ni a Fuenlabrada de viaje. Lo de Figo le sigue doliendo."', tags:'Gijón 26', img:'img/people/manu.jpg'},
+    {name:'Jaime', role:'Antimadridista · #93', quote:'"Más en forma ahora que con 18 años, y más antimadridista que el Cholo."', tags:'#93', img:'img/people/jaime.jpg'},
+    {name:'David Prieto', role:'Deportivista de cuna', quote:'"Del Depor desde xiquitito. Cuidado, no esté ya dormido en algún bar."', tags:'Gijón 26', img:'img/people/david.jpg'},
+    {name:'Carlos', role:'Rey gilí', quote:'"Maestro jedi de los audios de WhatsApp. Sin pantalón corto conocido."', tags:'Gijón 26', img:'img/people/carlos.jpg'},
+  ];
+  const initials = n => n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  const avatar = p => p.img
+    ? '<img class="pimg" src="'+p.img+'" alt="'+p.name+'">'
+    : '<div class="pava">'+initials(p.name)+'</div>';
+  const personCard = p =>
+    '<div class="person">'+avatar(p)+
+    '<div class="pbody"><div class="prole">'+p.role+'</div>'+
+    '<div class="pname">'+p.name+'</div>'+
+    (p.quote?'<div class="pquote">'+p.quote+'</div>':'')+
+    '<div class="ptags">'+(p.tags||'')+'</div></div></div>';
+  function buildCarousels(){
+    const l=document.getElementById('ctrack-l'), r=document.getElementById('ctrack-r');
+    if(!l||!r) return;
+    const half=Math.ceil(PEOPLE.length/2);
+    const a=PEOPLE.slice(0,half), b=PEOPLE.slice(half);
+    const track=arr=>{ const s=(arr.length?arr:PEOPLE).map(personCard).join(''); return s+s; }; // x2 = loop continuo
+    l.innerHTML=track(a);
+    r.innerHTML=track(b);
+  }
+  buildCarousels();
+
+  // Tira de personas (horizontal en PC / vertical en móvil)
+  function buildStrip(){
+    const t=document.getElementById('pstrip-track'); if(!t) return;
+    const cards=PEOPLE.map(personCard).join('');
+    t.innerHTML=cards+cards;   // x2 = bucle continuo
+  }
+  buildStrip();
+
+  // ===== Asistente del viaje (lenguaje natural, local, sin clave API) =====
+  function aNorm(s){return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+  const A_CATSYN = {
+    restaurante:['restaurante','restaurantes','comer','comemos','comida','cenar','cena','ceno','cenamos','almorzar','almuerzo','picar'],
+    bar:['bar','bares','vino','vinos','vermut','tardeo','cana','canas','aperitivo','sidra'],
+    pub:['pub','pubs','copa','copas','coctel','cocteles','fiesta','discoteca','salir','marcha'],
+    playa:['playa','playas','mar','arena','banar','bano','surf'],
+    alojamiento:['alojamiento','hotel','dormir','hostal','apartamento']
+  };
+  const A_ATTR = [
+    {kw:['barato','baratos','economic','low cost','poco dinero'], names:['Tierra Astur Poniente','Mesón Sancho']},
+    {kw:['sidra'], names:['Tierra Astur Poniente']},
+    {kw:['pescado','pescados','marisco'], names:['Restaurante Zabala']},
+    {kw:['hamburgues','burger'], names:["Berty's Burger"]},
+    {kw:['italian','pizza','pasta'], names:['Carbone']},
+    {kw:['vermut'], names:['La Casona de Jovellanos','La Cuesta del Cholo']},
+    {kw:['vino','vinos'], names:['Ruta de los Vinos','La Cuesta del Cholo']},
+    {kw:['coctel','copa','copas','combinado'], names:['El Varsovia','San Telmo']},
+    {kw:['vista','vistas'], names:['El Varsovia']},
+    {kw:['fiesta','concierto','conciertos','discoteca','metropoli','musica'], names:['Metrópoli (Feria de Muestras)']},
+    {kw:['formal','elegante'], names:['El Recetario de Alex San Pedro']},
+    {kw:['favorit','mejor','recomien','top'], names:['Mamaguaja','Restaurante Zabala','El Varsovia']},
+    {kw:['cimadevilla'], names:['Restaurante Zabala','La Casona de Jovellanos']},
+    {kw:['puerto'], names:['Carbone','Playa de Poniente']}
+  ];
+
+  function asisAnswer(q){
+    const t = aNorm(q);
+    if(/^(hola|buenas|hey|que tal|ayuda|help|hi)\b/.test(t))
+      return {text:'¡Hola! Pregúntame por sitios: "dónde ceno barato", "bares de vermut", "cócteles con vistas", "playas", "el partido del mundial" o "quién va al viaje".'};
+    if(/mundial|partido|futbol|fútbol|resultado|marcador|juega|seleccion/.test(t)){
+      const w = (document.getElementById('wc-info').textContent||'').trim();
+      return {text:'⚽ Mundial 2026 — '+(w||'cargando…')+'. El calendario completo está en el botón de abajo.'};
+    }
+    if(/quien|quienes|gente|amigos|viajer|somos|personas|grupo/.test(t)){
+      const names = PEOPLE.filter(p=>p.img).map(p=>p.name);
+      return {text:'Al viaje vais '+names.length+': '+names.join(', ')+(names.length<11?' (faltan algunos por añadir).':'.')};
+    }
+    if(/plan|ruta|itinerario|que hacemos|organiza|noche perfecta/.test(t))
+      return {text:'Plan exprés para la noche:', places:['Mamaguaja','Ruta de los Vinos','El Varsovia','Metrópoli (Feria de Muestras)'], note:'Cena → vinos → cóctel → fiesta. 😏'};
+
+    const scores = {}; PLACES.forEach(p=>scores[p.n]=0);
+    const words = new Set(t.split(/[^a-z0-9]+/).filter(Boolean));   // palabras completas
+    const cats = [];
+    for(const c in A_CATSYN){ if(A_CATSYN[c].some(k=> k.includes(' ') ? t.includes(k) : words.has(k))) cats.push(c); }
+    PLACES.forEach(p=>{ if(cats.includes(p.c)) scores[p.n]+=2; });
+    A_ATTR.forEach(a=>{ if(a.kw.some(k=>t.includes(k))) a.names.forEach(n=>{ if(n in scores) scores[n]+=4; }); });
+    const toks = [...words].filter(w=>w.length>3);
+    PLACES.forEach(p=>{ const hay=aNorm(p.n+' '+(p.d||'')); toks.forEach(w=>{ if(hay.includes(w)) scores[p.n]+=1; }); });
+
+    const ranked = PLACES.filter(p=>scores[p.n]>0).sort((a,b)=>scores[b.n]-scores[a.n]);
+    if(!ranked.length)
+      return {text:'No estoy seguro 🤔. Prueba: "restaurantes baratos", "bares de vermut", "cócteles", "playas" o "el partido del mundial".'};
+    const PL = {restaurante:'restaurantes',bar:'bares',pub:'pubs',playa:'playas',alojamiento:'alojamientos'};
+    const intro = cats.length===1 ? ('Te recomiendo '+PL[cats[0]]+':') : (cats.length>1 ? 'Te recomiendo:' : 'Esto encaja:');
+    return {text:intro, places:ranked.slice(0,4).map(p=>p.n)};
+  }
+
+  function asisOpen(name){
+    const w = markerIndex[name];
+    if(w && w.open) w.open();
+    const m = document.getElementById('map'); if(m) m.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function asisAdd(role, html){
+    const box = document.getElementById('asis-msgs');
+    const d = document.createElement('div'); d.className='asis-msg '+role; d.innerHTML=html;
+    box.appendChild(d); box.scrollTop = box.scrollHeight;
+  }
+  function asisRespond(q){
+    asisAdd('user', escapeHtml(q));
+    const r = asisAnswer(q);
+    let html = escapeHtml(r.text);
+    if(r.places && r.places.length){
+      html += '<div class="asis-chips">'+r.places.map(n=>{
+        const p = PLACES.find(x=>x.n===n) || {c:'restaurante'};
+        return '<button class="asis-chip" data-name="'+escapeHtml(n)+'" style="--c:'+COLORS[p.c]+'"><i></i>'+escapeHtml(n)+'</button>';
+      }).join('')+'</div>';
+    }
+    if(r.note) html += '<div class="asis-note">'+escapeHtml(r.note)+'</div>';
+    asisAdd('bot', html);
+  }
+  function asisAsk(q){ asisRespond(q); }
+
+  (function(){
+    const btn = document.getElementById('asis-btn'); if(!btn) return;
+    const panel = document.getElementById('asis-panel');
+    btn.addEventListener('click', ()=>{ panel.classList.toggle('open'); if(panel.classList.contains('open')) document.getElementById('asis-input').focus(); });
+    document.getElementById('asis-close').addEventListener('click', ()=>panel.classList.remove('open'));
+    document.getElementById('asis-form').addEventListener('submit', e=>{
+      e.preventDefault();
+      const i = document.getElementById('asis-input'); const q = i.value.trim();
+      if(!q) return; i.value=''; asisRespond(q);
+    });
+    document.getElementById('asis-msgs').addEventListener('click', e=>{
+      const c = e.target.closest('.asis-chip'); if(c) asisOpen(c.dataset.name);
+    });
+    asisAdd('bot', '¡Hola! 👋 Soy el asistente del viaje. Prueba:<div class="asis-ex">'+
+      '<button onclick="asisAsk(\'donde ceno barato\')">¿dónde ceno barato?</button>'+
+      '<button onclick="asisAsk(\'bares de vermut\')">bares de vermut</button>'+
+      '<button onclick="asisAsk(\'cocteles con vistas\')">cócteles con vistas</button>'+
+      '<button onclick="asisAsk(\'playas\')">playas</button>'+
+      '<button onclick="asisAsk(\'el partido del mundial\')">partido del mundial</button></div>');
+  })();
+
+  // --- Ticker Mundial 2026 (TheSportsDB, gratis) ---
+  const WC_LEAGUE = '4429';
+  const WC_API = 'https://www.thesportsdb.com/api/v1/json/3/';
+  const LIVE_ST = ['1H','2H','HT','ET','BT','P','LIVE','INPLAY','45','90'];
+  const FIN_ST  = ['FT','AET','PEN','MATCH FINISHED'];
+
+  function wcDay(off){ const d=new Date(); d.setDate(d.getDate()+off); return d.toISOString().slice(0,10); }
+  function wcTime(ts){ if(!ts) return ''; const d=new Date(ts.replace(' ','T')+'Z');
+    return isNaN(d)?'':d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
+  async function wcGet(u){ try{ const r=await fetch(u); return r.ok?await r.json():null; }catch(e){ return null; } }
+
+  async function loadWC(){
+    const info = document.getElementById('wc-info');
+    // 1) ¿Hay partido en juego? (eventos de hoy y ayer filtrados al Mundial)
+    const days = await Promise.all([wcGet(WC_API+'eventsday.php?d='+wcDay(0)+'&s=Soccer'),
+                                    wcGet(WC_API+'eventsday.php?d='+wcDay(-1)+'&s=Soccer')]);
+    let wc = [];
+    days.forEach(d=>{ if(d && d.events) wc = wc.concat(d.events.filter(e=>e.idLeague===WC_LEAGUE)); });
+    const live = wc.find(e=>LIVE_ST.includes((e.strStatus||'').toUpperCase()));
+    if(live){
+      info.innerHTML = '<span class="live"><span class="live-dot"></span> EN JUEGO</span> &nbsp;'+
+        live.strHomeTeam+' <span class="sc">'+(live.intHomeScore??0)+'–'+(live.intAwayScore??0)+'</span> '+
+        live.strAwayTeam+' &nbsp;·&nbsp; '+(live.strProgress||live.strStatus||'');
+      return;
+    }
+    // 2) Último resultado + próximo partido
+    const [past,next] = await Promise.all([wcGet(WC_API+'eventspastleague.php?id='+WC_LEAGUE),
+                                           wcGet(WC_API+'eventsnextleague.php?id='+WC_LEAGUE)]);
+    let html = '';
+    const last = past && past.events && past.events.find(e=>e.intHomeScore!=null);
+    if(last){
+      html += '<b style="color:#fff">Último:</b> '+last.strHomeTeam+
+              ' <span class="sc">'+last.intHomeScore+'–'+last.intAwayScore+'</span> '+
+              last.strAwayTeam+' <span style="color:#8a93a3">(Final)</span>';
+    }
+    if(next && next.events && next.events.length){
+      const e = next.events[0];
+      html += (html?' &nbsp;·&nbsp; ':'')+'<b style="color:#fff">Próximo:</b> '+
+              e.strHomeTeam+' vs '+e.strAwayTeam+' <span style="color:#8a93a3">'+wcTime(e.strTimestamp)+'</span>';
+    }
+    info.innerHTML = html || 'Sin partidos cercanos — mira el calendario →';
+  }
+  loadWC();
+  setInterval(loadWC, 60000); // refresco cada minuto
+</script>
+
+</body>
+</html>
