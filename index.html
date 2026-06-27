@@ -383,15 +383,84 @@
     100%{box-shadow:0 0 0 0 rgba(251,113,133,0)}
   }
 
+  /* ---- Editor de puntos ---- */
+  .map-tools .mt-edit{font-family:var(--display);font-weight:700;font-size:.85rem;cursor:pointer;color:var(--lime);
+    background:rgba(163,230,53,.1);border:1px solid rgba(163,230,53,.4);border-radius:999px;padding:8px 14px;transition:.15s}
+  .map-tools .mt-edit:hover{background:rgba(163,230,53,.18)}
+  #ed-overlay{position:fixed;inset:0;z-index:70;background:rgba(4,5,7,.62);backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
+  #ed-overlay.open{display:flex}
+  .ed-sheet{width:100%;max-width:560px;max-height:88vh;display:flex;flex-direction:column;
+    background:rgba(12,15,20,.99);border:1px solid var(--line2);border-bottom:none;
+    border-radius:20px 20px 0 0;box-shadow:0 -20px 60px rgba(0,0,0,.6);overflow:hidden}
+  @media(min-width:560px){ #ed-overlay{align-items:center} .ed-sheet{border-radius:20px;border-bottom:1px solid var(--line2)} }
+  .ed-head{display:flex;align-items:center;gap:10px;padding:15px 16px;border-bottom:1px solid var(--line);
+    font-family:var(--display);font-weight:700;font-size:1.1rem;color:#fff}
+  .ed-head .sp{flex:1}
+  .ed-dirty{font-family:var(--body);font-size:.7rem;font-weight:600;color:#fcd34d;
+    background:rgba(252,211,77,.1);border:1px solid rgba(252,211,77,.3);padding:4px 9px;border-radius:999px;display:none}
+  .ed-dirty.on{display:inline-block}
+  .ed-head button.x{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;line-height:1}
+  .ed-body{padding:14px 16px 16px;overflow-y:auto}
+  .ed-addbtn{width:100%;font-family:var(--display);font-weight:700;font-size:.95rem;cursor:pointer;
+    color:#0a0c0f;background:linear-gradient(120deg,var(--lime),var(--lime-d));border:none;
+    border-radius:13px;padding:13px;margin-bottom:14px}
+  .ed-row{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid var(--line);
+    border-radius:13px;background:var(--glass);margin-bottom:9px}
+  .ed-row .ic{width:36px;height:36px;flex:0 0 auto;border-radius:10px;display:grid;place-items:center;font-size:1.1rem;
+    background:var(--c);box-shadow:0 6px 14px -5px var(--c)}
+  .ed-row .meta{flex:1;min-width:0}
+  .ed-row .meta h5{font-family:var(--display);font-weight:600;font-size:.98rem;margin:0;color:#fff;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ed-row .meta span{font-size:.74rem;color:var(--c);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+  .ed-row .go{background:rgba(255,255,255,.06);border:1px solid var(--line2);color:#dfe5ee;cursor:pointer;
+    font-size:.9rem;border-radius:9px;padding:7px 11px;font-family:var(--display);font-weight:600}
+  .ed-row .go:hover{border-color:var(--lime);color:#fff}
+  .ed-field{margin-bottom:13px}
+  .ed-field label{display:block;font-family:var(--display);font-weight:600;font-size:.78rem;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .ed-field input,.ed-field textarea,.ed-field select{width:100%;background:rgba(255,255,255,.06);
+    border:1px solid var(--line2);border-radius:11px;padding:11px 12px;color:#fff;font-size:.95rem;
+    font-family:var(--body);outline:none}
+  .ed-field textarea{resize:vertical;min-height:64px}
+  .ed-field input:focus,.ed-field textarea:focus,.ed-field select:focus{border-color:var(--lime)}
+  .ed-loc{display:flex;gap:8px}
+  .ed-loc input{flex:1}
+  .ed-locbtns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .ed-locbtns button{flex:1;min-width:130px;font-family:var(--display);font-weight:600;font-size:.84rem;cursor:pointer;
+    color:var(--cyan);background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.32);border-radius:11px;padding:10px}
+  .ed-locbtns button:hover{background:rgba(56,189,248,.22)}
+  .ed-foot{display:flex;gap:9px;margin-top:6px}
+  .ed-foot button{flex:1;font-family:var(--display);font-weight:700;font-size:.92rem;cursor:pointer;
+    border-radius:12px;padding:13px;border:1px solid var(--line2)}
+  .ed-save{color:#0a0c0f;background:linear-gradient(120deg,var(--lime),var(--lime-d));border-color:transparent}
+  .ed-cancel{color:#dfe5ee;background:var(--glass)}
+  .ed-del{flex:0 0 auto;color:var(--red);background:rgba(251,113,133,.1);border-color:rgba(251,113,133,.35);padding:13px 16px}
+  .ed-exportbar{margin-top:6px;padding-top:14px;border-top:1px solid var(--line)}
+  .ed-export{width:100%;font-family:var(--display);font-weight:700;font-size:.95rem;cursor:pointer;color:var(--cyan);
+    background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.34);border-radius:13px;padding:13px}
+  .ed-reset{width:100%;margin-top:9px;font-family:var(--body);font-size:.82rem;cursor:pointer;color:var(--muted);
+    background:none;border:none;text-decoration:underline}
+  .ed-note{font-size:.84rem;color:var(--muted);line-height:1.5;margin:0 0 13px}
+  .ed-code{width:100%;min-height:150px;background:#0a0c0f;border:1px solid var(--line2);border-radius:11px;
+    padding:11px;color:#cbd2dd;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.72rem;outline:none;resize:vertical}
+  #ed-pick{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:80;display:none;
+    align-items:center;gap:10px;background:rgba(12,15,20,.97);border:1px solid var(--lime);
+    border-radius:999px;padding:10px 16px;box-shadow:0 12px 34px rgba(0,0,0,.55);
+    font-family:var(--display);font-weight:600;font-size:.9rem;color:#fff}
+  #ed-pick.on{display:flex}
+  #ed-pick button{background:rgba(255,255,255,.08);border:1px solid var(--line2);color:var(--muted);
+    border-radius:8px;padding:5px 9px;font-size:.8rem;cursor:pointer}
+
   /* Google InfoWindow dark tweaks */
   .gm-style .gm-style-iw-c{background:#11151b !important;border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 40px rgba(0,0,0,.6) !important;padding:0 !important}
   .gm-style .gm-style-iw-tc::after{background:#11151b !important}
   .gm-style .gm-style-iw-d{overflow:hidden !important}
   .gm-style-iw button{filter:invert(1) opacity(.6)}
   /* Leaflet (fallback) en oscuro */
-  .leaflet-popup-content-wrapper{background:#11151b;color:#f3f5f7;border:1px solid rgba(255,255,255,.12);overflow:hidden;padding:0}
-  .leaflet-popup-tip{background:#11151b;border:1px solid rgba(255,255,255,.12)}
-  .leaflet-popup-content{margin:0;width:auto !important}
+  .leaflet-popup-content-wrapper{background:#11151b !important;color:#f3f5f7 !important;border:1px solid rgba(255,255,255,.12);overflow:hidden;padding:0 !important}
+  .leaflet-popup-tip{background:#11151b !important;border:1px solid rgba(255,255,255,.12)}
+  .leaflet-popup-content{margin:0 !important;width:auto !important}
   .leaflet-container a.leaflet-popup-close-button{color:#8a93a3}
   .leaflet-control-attribution{background:rgba(8,9,12,.7) !important;color:#6b7785 !important}
   .leaflet-control-attribution a{color:#8a93a3 !important}
@@ -420,6 +489,8 @@
     <span class="mt-sep"></span>
     <button class="mt active" data-base="map" type="button">🗺️ Mapa</button>
     <button class="mt" data-base="sat" type="button">🛰️ Satélite</button>
+    <span class="mt-sep"></span>
+    <button class="mt-edit" id="ed-open" type="button">✏️ Editar</button>
   </div>
   <div id="map"></div>
 </div>
@@ -445,6 +516,20 @@
   <span class="wc-badge">⚽ Mundial 26</span>
   <span class="wc-info" id="wc-info">Cargando partidos…</span>
   <a class="wc-cal" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures" target="_blank">📅 Calendario</a>
+</div>
+
+<!-- ===== Editor de puntos ===== -->
+<div id="ed-pick">📍 Toca en el mapa para fijar la ubicación <button id="ed-pick-cancel" type="button">Cancelar</button></div>
+<div id="ed-overlay" role="dialog" aria-label="Editor de puntos">
+  <div class="ed-sheet">
+    <div class="ed-head">
+      <span id="ed-title">✏️ Editar puntos</span>
+      <span class="sp"></span>
+      <span class="ed-dirty" id="ed-dirty">● sin publicar</span>
+      <button class="x" id="ed-close" type="button" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="ed-body" id="ed-body"></div>
+  </div>
 </div>
 
 <!-- ===== Asistente del viaje ===== -->
@@ -473,6 +558,7 @@
   // --- Datos del mapa ---
   const COLORS = {restaurante:'#fb7185', bar:'#38bdf8', pub:'#a78bfa', playa:'#2dd4bf', alojamiento:'#fcd34d'};
   const CATLABEL = {restaurante:'Restaurante', bar:'Bar', pub:'Pub', playa:'Playa', alojamiento:'Alojamiento'};
+  /*PLACES_START*/
   const PLACES = [
     {n:'Tierra Astur Poniente', c:'restaurante', lat:43.5455, lng:-5.6700, q:'Tierra Astur Poniente Gijón', d:'Cenar asturiano + barra libre de sidra. Económico.', h:[[1200,2400]]},
     {n:'Mesón Sancho',          c:'restaurante', lat:43.5440, lng:-5.6620, q:'Mesón Sancho Gijón', d:'De los más baratos. Para ir sobre seguro.', h:[[1300,1600],[2000,2330]]},
@@ -496,6 +582,17 @@
     {n:'Playa de La Ñora',      c:'playa', lat:43.5318, lng:-5.5835, q:'Playa de La Ñora Gijón', d:'A las afueras (este), entre verde.', h:[[700,2300]]},
     {n:'Alojamiento 1 · Apto. La Arena', c:'alojamiento', lat:43.5392, lng:-5.6498, q:'Barrio La Arena Gijón', d:'Nuestra base: apartamento en el Barrio de La Arena, junto a la playa de San Lorenzo. 6 plazas, 3 hab., terraza y ascensor.', url:'https://www.reservalos.es/details/room/id/76?from=2026-07-13&to=2026-07-18&guests_rooms=5%2C0'},
   ];
+  /*PLACES_END*/
+
+  // ---- Persistencia local (cambios sin publicar en este dispositivo) ----
+  const LS_KEY = 'gijon_places_v1';
+  function savePlaces(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(PLACES)); }catch(e){} if(typeof updateDirtyFlag==='function') updateDirtyFlag(); }
+  function clearSaved(){ try{ localStorage.removeItem(LS_KEY); }catch(e){} }
+  function hasSaved(){ try{ return !!localStorage.getItem(LS_KEY); }catch(e){ return false; } }
+  (function loadSaved(){
+    try{ const raw=localStorage.getItem(LS_KEY); if(raw){ const arr=JSON.parse(raw);
+      if(Array.isArray(arr)&&arr.length){ PLACES.length=0; arr.forEach(p=>PLACES.push(p)); } } }catch(e){}
+  })();
 
   const DARK_STYLE = [
     {elementType:'geometry',stylers:[{color:'#0e1116'}]},
@@ -516,6 +613,7 @@
   const GMAPS_KEY = 'AIzaSyBcnRn-05dT_64cJaNeJ90n50n-5n_doKQ';
   let activeMap = null;            // 'google' | 'leaflet'
   let gmap = null, lmap = null;
+  let gMarkers = [], lMarkers = [], gIW = null;   // marcadores re-renderizables
   let mapGroups = {};              // cat -> [ {name,cat,lat,lng,setVisible(on),open()} ]
   let markerIndex = {};            // nombre -> wrapper
   let fellBack = false;
@@ -524,7 +622,8 @@
     map:{url:'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', attr:'© OpenStreetMap, © CARTO'},
     sat:{url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr:'Imagery © Esri'}
   };
-  const placeByName = Object.fromEntries(PLACES.map(p=>[p.n,p]));
+  let placeByName = Object.fromEntries(PLACES.map(p=>[p.n,p]));
+  function rebuildIndex(){ placeByName = Object.fromEntries(PLACES.map(p=>[p.n,p])); }
 
   const gLink = p => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q);
   const popupHTML = p => {
@@ -545,8 +644,8 @@
       '</div>'+
       '<div style="padding:12px 14px 14px">'+
         '<h4 style="font-family:\'Space Grotesk\',sans-serif;font-weight:600;font-size:1.05rem;'+
-          'margin:0 0 5px;color:#fff;line-height:1.15">'+p.n+'</h4>'+
-        (p.d?'<p style="margin:0 0 12px;font-size:.85rem;color:#8a93a3;line-height:1.4">'+p.d+'</p>':'<div style="height:4px"></div>')+
+          'margin:0 0 5px;color:#fff;line-height:1.15">'+escapeHtml(p.n)+'</h4>'+
+        (p.d?'<p style="margin:0 0 12px;font-size:.85rem;color:#8a93a3;line-height:1.4">'+escapeHtml(p.d)+'</p>':'<div style="height:4px"></div>')+
         '<a href="'+(p.url||gLink(p))+'" target="_blank" rel="noopener" '+
           'style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;'+
           'background:'+aBg+';color:'+aFg+';border:1px solid '+aBd+';'+
@@ -574,7 +673,16 @@
       mapTypeControl:false, streetViewControl:false, fullscreenControl:true,
       styles:DARK_STYLE, backgroundColor:'#0e1116'
     });
-    const iw = new google.maps.InfoWindow();
+    gIW = new google.maps.InfoWindow();
+    activeMap='google';
+    placeGoogleMarkers();
+    // Si Google no consigue pintar tiles (p.ej. ApiNotActivated), cae a Leaflet
+    let gok=false;
+    google.maps.event.addListenerOnce(gmap,'tilesloaded',()=>{ gok=true; });
+    setTimeout(()=>{ if(!gok && activeMap==='google'){ activeMap=null; useLeaflet(); } }, 3500);
+  }
+  function placeGoogleMarkers(){
+    gMarkers.forEach(m=>m.setMap(null)); gMarkers=[];
     mapGroups = {}; markerIndex = {};
     PLACES.forEach(p=>{
       const m = new google.maps.Marker({
@@ -582,19 +690,15 @@
         icon:{ path:google.maps.SymbolPath.CIRCLE, scale:8,
                fillColor:COLORS[p.c], fillOpacity:1, strokeColor:'#0e1116', strokeWeight:2.5 }
       });
-      m.addListener('click',()=>{ iw.setContent(popupHTML(p)); iw.open(gmap,m); });
+      m.addListener('click',()=>{ gIW.setContent(popupHTML(p)); gIW.open(gmap,m); });
+      gMarkers.push(m);
       const w = {name:p.n, cat:p.c, lat:p.lat, lng:p.lng,
         setVisible:on=>m.setMap(on?gmap:null),
         open:()=>{ gmap.panTo(m.getPosition()); if(gmap.getZoom()<15) gmap.setZoom(15);
                    google.maps.event.trigger(m,'click'); }};
       (mapGroups[p.c]=mapGroups[p.c]||[]).push(w); markerIndex[p.n]=w;
     });
-    activeMap='google';
     applyMapFilter();
-    // Si Google no consigue pintar tiles (p.ej. ApiNotActivated), cae a Leaflet
-    let gok=false;
-    google.maps.event.addListenerOnce(gmap,'tilesloaded',()=>{ gok=true; });
-    setTimeout(()=>{ if(!gok && activeMap==='google'){ activeMap=null; useLeaflet(); } }, 3500);
   }
 
   // ---- Leaflet (fallback) ----
@@ -610,25 +714,37 @@
       lmap = L.map('map').setView([43.5455,-5.6585],14);
       const t0 = LTILES[baseMode==='sat'?'sat':'map'];
       lTile = L.tileLayer(t0.url, {maxZoom:19, attribution:t0.attr}).addTo(lmap);
-      mapGroups={}; markerIndex={};
-      PLACES.forEach(p=>{
-        const mk=L.circleMarker([p.lat,p.lng],{radius:8,color:'#0e1116',weight:2,
-          fillColor:COLORS[p.c],fillOpacity:1}).bindPopup(popupHTML(p));
-        mk.addTo(lmap);
-        const w = {name:p.n, cat:p.c, lat:p.lat, lng:p.lng,
-          setVisible:on=>{ on?mk.addTo(lmap):mk.remove(); },
-          open:()=>{ if(!lmap.hasLayer(mk)) mk.addTo(lmap);
-                     lmap.setView([p.lat,p.lng], Math.max(lmap.getZoom(),15)); mk.openPopup(); }};
-        (mapGroups[p.c]=mapGroups[p.c]||[]).push(w); markerIndex[p.n]=w;
-      });
       activeMap='leaflet';
-      applyMapFilter();
+      placeLeafletMarkers();
       // reajusta cuando el contenedor ya tiene su tamaño final (evita zoom mal calculado)
       setTimeout(()=>{ lmap.invalidateSize(); applyMapFilter(); }, 250);
     };
     if(window.L) start();
     else{ const s=document.createElement('script');
       s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'; s.onload=start; document.head.appendChild(s); }
+  }
+  function placeLeafletMarkers(){
+    lMarkers.forEach(mk=>mk.remove()); lMarkers=[];
+    mapGroups={}; markerIndex={};
+    PLACES.forEach(p=>{
+      const mk=L.circleMarker([p.lat,p.lng],{radius:8,color:'#0e1116',weight:2,
+        fillColor:COLORS[p.c],fillOpacity:1}).bindPopup(popupHTML(p));
+      mk.addTo(lmap); lMarkers.push(mk);
+      const w = {name:p.n, cat:p.c, lat:p.lat, lng:p.lng,
+        setVisible:on=>{ on?mk.addTo(lmap):mk.remove(); },
+        open:()=>{ if(!lmap.hasLayer(mk)) mk.addTo(lmap);
+                   lmap.setView([p.lat,p.lng], Math.max(lmap.getZoom(),15)); mk.openPopup(); }};
+      (mapGroups[p.c]=mapGroups[p.c]||[]).push(w); markerIndex[p.n]=w;
+    });
+    applyMapFilter();
+  }
+
+  // ---- Re-render tras editar (en el motor activo) ----
+  function renderMarkers(){
+    rebuildIndex();
+    if(activeMap==='google') placeGoogleMarkers();
+    else if(activeMap==='leaflet') placeLeafletMarkers();
+    renderGallery();
   }
 
   // ---- Filtro común (Google o Leaflet) ----
@@ -675,10 +791,13 @@
         '<div class="poi-actions"><button class="poi-map" type="button">📍 En el mapa</button>'+
         '<a class="poi-go" href="'+(p.url||g)+'" target="_blank" rel="noopener">'+(p.url?'Ver alojamiento ▸':'Cómo llegar ▸')+'</a></div></div></div>';
     }).join('');
-    box.addEventListener('click', e=>{
-      if(e.target.closest('.poi-go')) return;            // deja seguir el enlace
-      const tile = e.target.closest('.poi-tile'); if(tile) asisOpen(tile.dataset.name);
-    });
+    if(!box.dataset.bound){
+      box.dataset.bound='1';
+      box.addEventListener('click', e=>{
+        if(e.target.closest('.poi-go')) return;            // deja seguir el enlace
+        const tile = e.target.closest('.poi-tile'); if(tile) asisOpen(tile.dataset.name);
+      });
+    }
   }
   renderGallery();
 
@@ -900,6 +1019,160 @@
   }
   loadWC();
   setInterval(loadWC, 60000); // refresco cada minuto
+
+  // ===== Editor de puntos de interés =====
+  const escapeAttr = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let edIdx = -1;            // índice en edición (-1 = nuevo)
+  let pendingDraft = null;   // borrador mientras se elige ubicación en el mapa
+  let pickHandle = null, pickEngine = null;
+
+  function edEl(id){ return document.getElementById(id); }
+  function edTitle(t){ edEl('ed-title').textContent = t; }
+  function updateDirtyFlag(){ const d=edEl('ed-dirty'); if(d) d.classList.toggle('on', hasSaved()); }
+
+  function edOpen(){ edEl('ed-overlay').classList.add('open'); renderList(); }
+  function edClose(){ edEl('ed-overlay').classList.remove('open'); }
+
+  function renderList(){
+    edIdx=-1; edTitle('✏️ Editar puntos'); updateDirtyFlag();
+    const rows = PLACES.map((p,i)=>
+      '<div class="ed-row" style="--c:'+COLORS[p.c]+'">'+
+        '<span class="ic">'+(CAT_EMOJI[p.c]||'📍')+'</span>'+
+        '<div class="meta"><h5>'+escapeHtml(p.n)+'</h5><span>'+CATLABEL[p.c]+'</span></div>'+
+        '<button class="go" data-edit="'+i+'" type="button">Editar</button>'+
+      '</div>').join('');
+    edEl('ed-body').innerHTML =
+      '<button class="ed-addbtn" id="ed-add" type="button">➕ Añadir punto</button>'+rows+
+      '<div class="ed-exportbar">'+
+        '<button class="ed-export" id="ed-export" type="button">⬇️ Exportar / Publicar cambios</button>'+
+        '<button class="ed-reset" id="ed-reset" type="button">Descartar cambios y volver a la versión publicada</button>'+
+      '</div>';
+    edEl('ed-add').onclick = ()=>openForm(-1);
+    edEl('ed-export').onclick = exportView;
+    edEl('ed-reset').onclick = resetAll;
+    edEl('ed-body').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openForm(+b.dataset.edit));
+  }
+
+  function openForm(idx, draft){
+    edIdx = idx;
+    const editing = idx>=0;
+    const base = draft || (editing ? PLACES[idx] : {n:'',c:'bar',d:'',lat:'',lng:'',url:''});
+    edTitle(editing ? '✏️ Editar punto' : '➕ Nuevo punto');
+    const opts = Object.keys(CATLABEL).map(k=>'<option value="'+k+'"'+(base.c===k?' selected':'')+'>'+CATLABEL[k]+'</option>').join('');
+    edEl('ed-body').innerHTML =
+      '<div class="ed-field"><label>Nombre</label><input id="f-n" type="text" value="'+escapeAttr(base.n)+'" placeholder="Nombre del sitio"></div>'+
+      '<div class="ed-field"><label>Categoría</label><select id="f-c">'+opts+'</select></div>'+
+      '<div class="ed-field"><label>Descripción</label><textarea id="f-d" placeholder="Una línea sobre el sitio">'+escapeHtml(base.d||'')+'</textarea></div>'+
+      '<div class="ed-field"><label>Ubicación (latitud, longitud)</label>'+
+        '<div class="ed-loc"><input id="f-lat" type="number" step="any" value="'+(base.lat===''?'':base.lat)+'" placeholder="Latitud"><input id="f-lng" type="number" step="any" value="'+(base.lng===''?'':base.lng)+'" placeholder="Longitud"></div>'+
+        '<div class="ed-locbtns"><button id="f-pick" type="button">📍 Tocar en el mapa</button><button id="f-center" type="button">🎯 Centro del mapa</button></div>'+
+      '</div>'+
+      '<div class="ed-field"><label>Enlace (opcional)</label><input id="f-url" type="url" value="'+escapeAttr(base.url||'')+'" placeholder="https://… (reserva, web…)"></div>'+
+      '<div class="ed-foot">'+
+        '<button class="ed-cancel" id="f-cancel" type="button">Volver</button>'+
+        (editing?'<button class="ed-del" id="f-del" type="button">Eliminar</button>':'')+
+        '<button class="ed-save" id="f-save" type="button">Guardar</button>'+
+      '</div>';
+    edEl('f-cancel').onclick = renderList;
+    edEl('f-save').onclick = ()=>saveForm(idx);
+    if(editing) edEl('f-del').onclick = ()=>deletePlace(idx);
+    edEl('f-center').onclick = ()=>{ const c=mapCenter(); const d=readForm(); d.lat=+c.lat.toFixed(6); d.lng=+c.lng.toFixed(6); openForm(idx,d); };
+    edEl('f-pick').onclick = ()=>{ pendingDraft=readForm(); startPick((lat,lng)=>{ pendingDraft.lat=+lat.toFixed(6); pendingDraft.lng=+lng.toFixed(6); openForm(idx,pendingDraft); }); };
+  }
+
+  function readForm(){
+    return { n:(edEl('f-n').value||'').trim(), c:edEl('f-c').value, d:(edEl('f-d').value||'').trim(),
+             lat:edEl('f-lat').value, lng:edEl('f-lng').value, url:(edEl('f-url').value||'').trim() };
+  }
+
+  function saveForm(idx){
+    const f = readForm();
+    if(!f.n){ alert('Ponle un nombre al sitio.'); return; }
+    const lat=parseFloat(f.lat), lng=parseFloat(f.lng);
+    if(isNaN(lat)||isNaN(lng)){ alert('La ubicación no es válida. Usa "Tocar en el mapa" o "Centro del mapa".'); return; }
+    const editing = idx>=0;
+    const obj = editing ? PLACES[idx] : {};
+    const oldName = obj.n||'';
+    obj.n=f.n; obj.c=f.c; obj.d=f.d; obj.lat=lat; obj.lng=lng;
+    if(f.url) obj.url=f.url; else delete obj.url;
+    if(!obj.q || oldName!==f.n) obj.q = f.n+' Gijón';
+    if(!editing) PLACES.push(obj);
+    savePlaces(); renderMarkers(); renderList();
+  }
+
+  function deletePlace(idx){
+    if(!confirm('¿Eliminar "'+PLACES[idx].n+'"?')) return;
+    PLACES.splice(idx,1); savePlaces(); renderMarkers(); renderList();
+  }
+
+  function resetAll(){
+    if(!confirm('Se descartarán tus cambios en este dispositivo y volverá la versión publicada. ¿Continuar?')) return;
+    clearSaved(); location.reload();
+  }
+
+  // ---- Elegir ubicación en el mapa ----
+  function mapCenter(){
+    if(activeMap==='google' && gmap){ const c=gmap.getCenter(); return {lat:c.lat(), lng:c.lng()}; }
+    if(activeMap==='leaflet' && lmap){ const c=lmap.getCenter(); return {lat:c.lat, lng:c.lng}; }
+    return {lat:43.5455, lng:-5.6585};
+  }
+  function startPick(cb){
+    edEl('ed-overlay').classList.remove('open');
+    edEl('ed-pick').classList.add('on');
+    const finish=(lat,lng)=>{ stopPick(); edEl('ed-overlay').classList.add('open'); cb(lat,lng); };
+    if(activeMap==='google' && gmap){ pickEngine='google';
+      pickHandle = gmap.addListener('click', e=>finish(e.latLng.lat(), e.latLng.lng())); }
+    else if(activeMap==='leaflet' && lmap){ pickEngine='leaflet';
+      pickHandle = e=>finish(e.latlng.lat, e.latlng.lng); lmap.on('click', pickHandle); }
+    else { stopPick(); edEl('ed-overlay').classList.add('open'); }
+  }
+  function stopPick(){
+    edEl('ed-pick').classList.remove('on');
+    if(pickEngine==='google' && pickHandle){ google.maps.event.removeListener(pickHandle); }
+    else if(pickEngine==='leaflet' && pickHandle && lmap){ lmap.off('click', pickHandle); }
+    pickHandle=null; pickEngine=null;
+  }
+
+  // ---- Exportar / publicar ----
+  function buildPlacesCode(){ return 'const PLACES = '+JSON.stringify(PLACES,null,2)+';'; }
+  function exportView(){
+    edTitle('⬇️ Exportar cambios');
+    edEl('ed-body').innerHTML =
+      '<p class="ed-note">Tus cambios están guardados en este dispositivo y ya se ven en tu mapa. Para que los vea <b>todo el grupo</b>, sube el archivo actualizado a GitHub.</p>'+
+      '<div class="ed-foot" style="margin-bottom:14px"><button class="ed-save" id="x-dl" type="button">⬇️ Descargar index.html</button></div>'+
+      '<p class="ed-note">Después, en tu repo: <b>Add file → Upload files</b>, reemplaza <b>index.html</b> y haz <b>Commit</b>. En ~1 min se actualiza la web.</p>'+
+      '<p class="ed-note" style="margin-top:10px">¿Prefieres pegar solo los datos? Copia este bloque y reemplaza el array <b>PLACES</b> dentro de index.html:</p>'+
+      '<textarea class="ed-code" id="ed-codearea" readonly>'+escapeHtml(buildPlacesCode())+'</textarea>'+
+      '<div class="ed-foot" style="margin-top:10px"><button class="ed-cancel" id="x-back" type="button">Volver</button><button class="ed-save" id="x-copy" type="button">Copiar código</button></div>';
+    edEl('x-dl').onclick = downloadIndex;
+    edEl('x-back').onclick = renderList;
+    edEl('x-copy').onclick = function(){
+      const ta=edEl('ed-codearea'); ta.select(); ta.setSelectionRange(0,999999);
+      const done=()=>{ const b=edEl('x-copy'); b.textContent='Copiado ✓'; setTimeout(()=>b.textContent='Copiar código',1600); };
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(ta.value).then(done,()=>{document.execCommand('copy');done();}); }
+      else { document.execCommand('copy'); done(); }
+    };
+  }
+  async function downloadIndex(){
+    let src;
+    try{ const r=await fetch(location.href, {cache:'no-store'}); src=await r.text(); }
+    catch(e){ alert('No pude leer el archivo de la página. Usa "Copiar código" y pégalo en index.html.'); return; }
+    const re=/\/\*PLACES_START\*\/[\s\S]*?\/\*PLACES_END\*\//;
+    if(!re.test(src)){ alert('No encuentro los marcadores en el archivo. Usa "Copiar código" y pega el bloque en index.html.'); return; }
+    const out = src.replace(re, '/*PLACES_START*/\n  '+buildPlacesCode()+'\n  /*PLACES_END*/');
+    const blob=new Blob([out], {type:'text/html'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='index.html';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  }
+
+  // ---- Init editor ----
+  (function(){
+    const ob=edEl('ed-open'); if(ob) ob.addEventListener('click', edOpen);
+    const cb=edEl('ed-close'); if(cb) cb.addEventListener('click', edClose);
+    const ov=edEl('ed-overlay'); if(ov) ov.addEventListener('click', e=>{ if(e.target===ov) edClose(); });
+    const pc=edEl('ed-pick-cancel'); if(pc) pc.addEventListener('click', ()=>{ stopPick(); edEl('ed-overlay').classList.add('open'); if(pendingDraft) openForm(edIdx, pendingDraft); });
+    updateDirtyFlag();
+  })();
 </script>
 
 </body>
