@@ -261,35 +261,32 @@
     .poi-tile{flex:0 0 248px;scroll-snap-align:start}
   }
 
-  /* ---- Tira de personas (animada) ---- */
+  /* ---- Tira de personas (scroll manual + auto-avance, horizontal) ---- */
   .people-strip{max-width:1240px;margin:6px auto 0;padding:0 16px 8px}
-  .pstrip-view{overflow:hidden}
-  .pstrip-track{display:flex;gap:12px;will-change:transform}
-  .pstrip-track:hover{animation-play-state:paused}
-  .pstrip-track .person{width:158px;flex:0 0 auto}
-  .pstrip-track .person .pimg,.pstrip-track .person .pava{height:118px}
-  .pstrip-track .person .pbody{padding:9px 11px 11px}
-  .pstrip-track .person .pname{font-size:.92rem}
-  .pstrip-track .person .prole{font-size:.54rem}
-  .pstrip-track .person .pquote{font-size:.72rem;-webkit-line-clamp:2}
-  /* móvil: vertical */
-  .pstrip-view{max-height:470px;
-    -webkit-mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);
-            mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent)}
-  .pstrip-track{flex-direction:column;align-items:center;animation:scrollY 26s linear infinite}
+  .pstrip-view{overflow-x:auto;overflow-y:hidden;touch-action:pan-x;
+    scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;cursor:grab;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .pstrip-view::-webkit-scrollbar{display:none}
+  .pstrip-view.grabbing{cursor:grabbing}
+  .pstrip-track{display:flex;flex-direction:row;align-items:stretch;gap:12px}
+  .pstrip-track .person{width:168px;flex:0 0 auto}
+  .pstrip-track .person .pimg,.pstrip-track .person .pava{height:130px}
+  .pstrip-track .person .pbody{padding:10px 12px 12px}
+  .pstrip-track .person .pname{font-size:.96rem}
+  .pstrip-track .person .prole{font-size:.55rem}
+  .pstrip-track .person .pquote{font-size:.74rem;-webkit-line-clamp:2}
   @media(min-width:980px){
-    .pstrip-view{max-height:none;
-      -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
-              mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
-    .pstrip-track{flex-direction:row;align-items:stretch;animation:scrollX 45s linear infinite}
+    .pstrip-track .person{width:200px}
+    .pstrip-track .person .pimg,.pstrip-track .person .pava{height:150px}
   }
-  @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* ---- Tarjetas de personas (usadas en la tira inferior) ---- */
   .person{
-    width:208px;flex:0 0 auto;background:var(--glass);
-    border:1px solid var(--line);border-radius:15px;overflow:hidden;
+    width:208px;flex:0 0 auto;background:var(--glass);cursor:pointer;
+    border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.16s ease;
   }
+  .person:active{transform:scale(.97)}
   .person .pimg{width:100%;height:172px;object-fit:cover;display:block;background:#11151b;
     filter:grayscale(1) contrast(1.05) brightness(.95)}
   .person .pava{width:100%;height:172px;display:flex;align-items:center;justify-content:center;
@@ -302,7 +299,28 @@
   .person .pquote{font-size:.79rem;color:var(--muted);font-style:italic;margin:7px 0 9px;line-height:1.4;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .person .ptags{font-family:var(--display);font-size:.6rem;letter-spacing:.1em;color:#8a93a3;text-transform:uppercase}
-  @keyframes scrollY{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+
+  /* ---- Tarjeta de persona ampliada ---- */
+  #pmodal{position:fixed;inset:0;z-index:75;background:rgba(4,5,7,.72);
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+    display:none;align-items:center;justify-content:center;padding:22px}
+  #pmodal.open{display:flex}
+  .pm-card{width:100%;max-width:340px;background:rgba(14,17,22,.99);border:1px solid var(--line2);
+    border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative;animation:pmIn .22s ease}
+  @keyframes pmIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+  .pm-close{position:absolute;top:12px;right:12px;z-index:2;width:34px;height:34px;border-radius:50%;
+    border:none;cursor:pointer;background:rgba(0,0,0,.5);color:#fff;font-size:1rem;
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .pm-img{width:100%;height:300px;object-fit:cover;display:block;background:#11151b;
+    filter:grayscale(1) contrast(1.05) brightness(.95)}
+  .pm-ava{width:100%;height:300px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:700;font-size:4.4rem;color:#0a0c0f;
+    background:linear-gradient(135deg,var(--lime),var(--cyan))}
+  .pm-body{padding:18px 20px 22px}
+  .pm-role{font-family:var(--display);letter-spacing:.2em;text-transform:uppercase;font-size:.66rem;color:var(--lime);margin-bottom:7px}
+  .pm-name{font-family:var(--display);font-weight:700;font-size:1.7rem;color:#fff;line-height:1.05;margin-bottom:10px}
+  .pm-quote{font-size:1rem;color:#cbd2dd;font-style:italic;line-height:1.5;margin-bottom:12px}
+  .pm-tags{font-family:var(--display);font-size:.66rem;letter-spacing:.12em;color:var(--lime);text-transform:uppercase}
 
   /* ---- Asistente del viaje ---- */
   #asis-btn{position:fixed;right:18px;bottom:84px;z-index:60;width:54px;height:54px;border-radius:50%;
@@ -518,6 +536,11 @@
   <a class="wc-cal" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures" target="_blank">📅 Calendario</a>
 </div>
 
+<!-- ===== Tarjeta de persona ampliada ===== -->
+<div id="pmodal" role="dialog" aria-label="Ficha del viajero">
+  <div class="pm-card" id="pm-card"></div>
+</div>
+
 <!-- ===== Editor de puntos ===== -->
 <div id="ed-pick">📍 Toca en el mapa para fijar la ubicación <button id="ed-pick-cancel" type="button">Cancelar</button></div>
 <div id="ed-overlay" role="dialog" aria-label="Editor de puntos">
@@ -560,27 +583,27 @@
   const CATLABEL = {restaurante:'Restaurante', bar:'Bar', pub:'Pub', playa:'Playa', alojamiento:'Alojamiento'};
   /*PLACES_START*/
   const PLACES = [
-    {n:'Tierra Astur Poniente', c:'restaurante', lat:43.5455, lng:-5.6700, q:'Tierra Astur Poniente Gijón', d:'Cenar asturiano + barra libre de sidra. Económico.', h:[[1200,2400]]},
-    {n:'Mesón Sancho',          c:'restaurante', lat:43.5440, lng:-5.6620, q:'Mesón Sancho Gijón', d:'De los más baratos. Para ir sobre seguro.', h:[[1300,1600],[2000,2330]]},
-    {n:'Mamaguaja',             c:'restaurante', lat:43.5448, lng:-5.6635, q:'Mamaguaja Gijón', d:'Favorito. ~40€, mejor para comer.', h:[[1330,1600],[2030,2330]]},
-    {n:'Restaurante Zabala',    c:'restaurante', lat:43.5478, lng:-5.6595, q:'Restaurante Zabala Cimadevilla Gijón', d:'Cimadevilla. Pescado de muy buen producto.', h:[[1300,1600],[2030,2330]]},
-    {n:'El Recetario de Alex San Pedro', c:'restaurante', lat:43.5440, lng:-5.6600, q:'El Recetario de Alex San Pedro Gijón', d:'Más formal, muy cerca. 35–40€.', h:[[1330,1600],[2030,2300]]},
-    {n:"Berty's Burger",        c:'restaurante', lat:43.5430, lng:-5.6625, q:"Berty's Burger Gijón", d:'Hamburguesas muy buenas, céntrico.', h:[[1300,1630],[2000,2330]]},
-    {n:'Carbone',               c:'restaurante', lat:43.5452, lng:-5.6655, q:'Carbone restaurante puerto Gijón', d:'Italiano en el puerto.', h:[[1300,1600],[2030,2330]]},
-    {n:'Ruta de los Vinos',     c:'bar', lat:43.5465, lng:-5.6600, q:'Ruta de los Vinos Gijón', d:'Vinos desde las 19:00, muy cerca.', h:[[1200,1600],[1900,100]]},
-    {n:'La Cuesta del Cholo',   c:'bar', lat:43.5470, lng:-5.6585, q:'Cuesta del Cholo Gijón', d:'Vinos y vermut de calle (si no llueve).', h:[[1200,1600],[1900,2400]]},
-    {n:'La Casona de Jovellanos', c:'bar', lat:43.5475, lng:-5.6588, q:'La Casona de Jovellanos Cimadevilla Gijón', d:'Vermut en Cimadevilla.', h:[[1200,1600],[1900,2330]]},
-    {n:'Gabbana',               c:'bar', lat:43.5435, lng:-5.6615, q:'Gabbana Gijón', d:'Tardeo.', h:[[1700,200]]},
-    {n:'Perro Viejo',           c:'bar', lat:43.5438, lng:-5.6608, q:'Perro Viejo Gijón', d:'Tardeo (os sentiréis los más jóvenes…).', h:[[1800,230]]},
-    {n:'Buda',                  c:'bar', lat:43.5442, lng:-5.6612, q:'Buda bar Gijón', d:'Tardeo.', h:[[1700,200]]},
-    {n:'El Varsovia',           c:'pub', lat:43.5462, lng:-5.6520, q:'El Varsovia Gijón', d:'Cócteles con vistas a San Lorenzo.', h:[[1800,300]]},
-    {n:'San Telmo',             c:'pub', lat:43.5468, lng:-5.6598, q:'San Telmo coctelería Gijón', d:'Buenos cócteles, céntrico.', h:[[1900,330]]},
-    {n:'Metrópoli (Feria de Muestras)', c:'pub', lat:43.5345, lng:-5.6370, q:'Recinto Ferial Luis Adaro Feria de Muestras Gijón', d:'Conciertos + fiesta hasta las 4. ~10€.', h:[[2000,400]]},
+    {n:'Tierra Astur Poniente', c:'restaurante', lat:43.54114, lng:-5.67513, q:'Tierra Astur Poniente Gijón', d:'Cenar asturiano + barra libre de sidra. Económico.', h:[[1200,2400]]},
+    {n:'Mesón Sancho',          c:'restaurante', lat:43.5426, lng:-5.66308, q:'Mesón Sancho Gijón', d:'De los más baratos. Para ir sobre seguro.', h:[[1300,1600],[2000,2330]]},
+    {n:'Mamaguaja',             c:'restaurante', lat:43.54315, lng:-5.66585, q:'Mamaguaja Gijón', d:'Favorito. ~40€, mejor para comer.', h:[[1330,1600],[2030,2330]]},
+    {n:'Restaurante Zabala',    c:'restaurante', lat:43.54605, lng:-5.66296, q:'Restaurante Zabala Cimadevilla Gijón', d:'Cimadevilla. Pescado de muy buen producto.', h:[[1300,1600],[2030,2330]]},
+    {n:'El Recetario de Alex San Pedro', c:'restaurante', lat:43.54458, lng:-5.66297, q:'El Recetario de Alex San Pedro Gijón', d:'Más formal, muy cerca. 35–40€.', h:[[1330,1600],[2030,2300]]},
+    {n:"Berty's Burger",        c:'restaurante', lat:43.54384, lng:-5.66366, q:"Berty's Burger Gijón", d:'Hamburguesas muy buenas, céntrico.', h:[[1300,1630],[2000,2330]]},
+    {n:'Carbone',               c:'restaurante', lat:43.54455, lng:-5.66396, q:'Carbone restaurante puerto Gijón', d:'Italiano en el puerto.', h:[[1300,1600],[2030,2330]]},
+    {n:'Ruta de los Vinos',     c:'bar', lat:43.54312, lng:-5.66369, q:'Ruta de los Vinos Gijón', d:'Vinos desde las 19:00, muy cerca.', h:[[1200,1600],[1900,100]]},
+    {n:'La Cuesta del Cholo',   c:'bar', lat:43.54703, lng:-5.66569, q:'Cuesta del Cholo Gijón', d:'Vinos y vermut de calle (si no llueve).', h:[[1200,1600],[1900,2400]]},
+    {n:'La Casona de Jovellanos', c:'bar', lat:43.54584, lng:-5.66277, q:'La Casona de Jovellanos Cimadevilla Gijón', d:'Vermut en Cimadevilla.', h:[[1200,1600],[1900,2330]]},
+    {n:'Gabbana',               c:'bar', lat:43.54299, lng:-5.66611, q:'Gabbana Gijón', d:'Tardeo.', h:[[1700,200]]},
+    {n:'Perro Viejo',           c:'bar', lat:43.54364, lng:-5.66183, q:'Perro Viejo Gijón', d:'Tardeo (os sentiréis los más jóvenes…).', h:[[1800,230]]},
+    {n:'Buda',                  c:'bar', lat:43.5423, lng:-5.66668, q:'Buda bar Gijón', d:'Tardeo.', h:[[1700,200]]},
+    {n:'El Varsovia',           c:'pub', lat:43.54354, lng:-5.66157, q:'El Varsovia Gijón', d:'Cócteles con vistas a San Lorenzo.', h:[[1800,300]]},
+    {n:'San Telmo',             c:'pub', lat:43.54439, lng:-5.66242, q:'San Telmo coctelería Gijón', d:'Buenos cócteles, céntrico.', h:[[1900,330]]},
+    {n:'Metrópoli (Feria de Muestras)', c:'pub', lat:43.53777, lng:-5.6375, q:'Recinto Ferial Luis Adaro Feria de Muestras Gijón', d:'Conciertos + fiesta hasta las 4. ~10€.', h:[[2000,400]]},
     {n:'Playa de San Lorenzo',  c:'playa', lat:43.5447, lng:-5.6500, q:'Playa de San Lorenzo Gijón', d:'La playa urbana, en pleno centro.', h:[[700,2300]]},
     {n:'Playa de Poniente',     c:'playa', lat:43.5440, lng:-5.6760, q:'Playa de Poniente Gijón', d:'Junto al puerto, resguardada.', h:[[700,2300]]},
     {n:'Playa del Arbeyal',     c:'playa', lat:43.5495, lng:-5.6960, q:'Playa del Arbeyal Gijón', d:'La Calzada (oeste), ambiente local.', h:[[700,2300]]},
     {n:'Playa de La Ñora',      c:'playa', lat:43.5318, lng:-5.5835, q:'Playa de La Ñora Gijón', d:'A las afueras (este), entre verde.', h:[[700,2300]]},
-    {n:'Alojamiento 1 · Apto. La Arena', c:'alojamiento', lat:43.5392, lng:-5.6498, q:'Barrio La Arena Gijón', d:'Nuestra base: apartamento en el Barrio de La Arena, junto a la playa de San Lorenzo. 6 plazas, 3 hab., terraza y ascensor.', url:'https://www.reservalos.es/details/room/id/76?from=2026-07-13&to=2026-07-18&guests_rooms=5%2C0'},
+    {n:'Alojamiento 1 · Apto. La Arena', c:'alojamiento', lat:43.53844, lng:-5.65267, q:'Barrio La Arena Gijón', d:'Nuestra base: apartamento en el Barrio de La Arena, junto a la playa de San Lorenzo. 6 plazas, 3 hab., terraza y ascensor.', url:'https://www.reservalos.es/details/room/id/76?from=2026-07-13&to=2026-07-18&guests_rooms=5%2C0'},
   ];
   /*PLACES_END*/
 
@@ -855,8 +878,8 @@
   const avatar = p => p.img
     ? '<img class="pimg" src="'+p.img+'" alt="'+p.name+'">'
     : '<div class="pava">'+initials(p.name)+'</div>';
-  const personCard = p =>
-    '<div class="person">'+avatar(p)+
+  const personCard = (p,i) =>
+    '<div class="person" data-i="'+i+'">'+avatar(p)+
     '<div class="pbody"><div class="prole">'+p.role+'</div>'+
     '<div class="pname">'+p.name+'</div>'+
     (p.quote?'<div class="pquote">'+p.quote+'</div>':'')+
@@ -864,10 +887,84 @@
   // Tira de personas (horizontal en PC / vertical en móvil)
   function buildStrip(){
     const t=document.getElementById('pstrip-track'); if(!t) return;
-    const cards=PEOPLE.map(personCard).join('');
+    const cards=PEOPLE.map((p,i)=>personCard(p,i)).join('');
     t.innerHTML=cards+cards;   // x2 = bucle continuo
   }
   buildStrip();
+
+  // ---- Tarjeta ampliada al pulsar ----
+  function openPerson(i){
+    const p = PEOPLE[i]; if(!p) return;
+    const media = p.img
+      ? '<img class="pm-img" src="'+p.img+'" alt="'+escapeHtml(p.name)+'">'
+      : '<div class="pm-ava">'+initials(p.name)+'</div>';
+    document.getElementById('pm-card').innerHTML =
+      '<button class="pm-close" id="pm-close" type="button" aria-label="Cerrar">✕</button>'+media+
+      '<div class="pm-body">'+
+        '<div class="pm-role">'+escapeHtml(p.role||'')+'</div>'+
+        '<div class="pm-name">'+escapeHtml(p.name)+'</div>'+
+        (p.quote?'<div class="pm-quote">'+escapeHtml(p.quote)+'</div>':'')+
+        '<div class="pm-tags">'+escapeHtml(p.tags||'')+'</div>'+
+      '</div>';
+    document.getElementById('pmodal').classList.add('open');
+    document.getElementById('pm-close').onclick = closePerson;
+  }
+  function closePerson(){ document.getElementById('pmodal').classList.remove('open'); }
+  (function(){ const ov=document.getElementById('pmodal');
+    if(ov) ov.addEventListener('click', e=>{ if(e.target===ov) closePerson(); }); })();
+
+  // ---- Carrusel: scroll manual + auto-avance ----
+  (function(){
+    const view = document.querySelector('.pstrip-view');
+    const track = document.getElementById('pstrip-track');
+    if(!view || !track) return;
+    const isH = ()=>window.matchMedia('(min-width:980px)').matches;
+    const SPEED = 0.45;                 // px por frame
+    let paused=false, resumeT=null;
+    let dragging=false, moved=0, sX=0, sY=0, sL=0, sT=0;
+
+    const half = ()=> track.scrollWidth/2;
+    const pos  = ()=> view.scrollLeft;
+    const setPos = v => { view.scrollLeft=v; };
+    function wrap(){ const h=half(); if(h<=0) return; const p=pos();
+      if(p>=h) setPos(p-h); else if(p<0) setPos(p+h); }
+    function tick(){ if(!paused){ setPos(pos()+SPEED); wrap(); } requestAnimationFrame(tick); }
+
+    function pause(){ paused=true; if(resumeT){ clearTimeout(resumeT); resumeT=null; } }
+    function resumeSoon(ms){ if(resumeT) clearTimeout(resumeT); resumeT=setTimeout(()=>{ paused=false; }, ms||2200); }
+
+    ['pointerdown','wheel','touchstart'].forEach(ev=>view.addEventListener(ev, pause, {passive:true}));
+    ['touchend','mouseleave'].forEach(ev=>view.addEventListener(ev, ()=>resumeSoon(2200), {passive:true}));
+    view.addEventListener('mouseenter', pause);
+    view.addEventListener('scroll', wrap, {passive:true});
+
+    // arrastrar con ratón (en móvil el scroll táctil ya es nativo)
+    view.addEventListener('pointerdown', e=>{
+      if(e.pointerType==='touch') return;
+      dragging=true; moved=0; view.classList.add('grabbing');
+      sX=e.clientX; sY=e.clientY; sL=view.scrollLeft; sT=view.scrollTop;
+      try{ view.setPointerCapture(e.pointerId); }catch(_){}
+    });
+    view.addEventListener('pointermove', e=>{
+      if(!dragging) return;
+      const dx=e.clientX-sX, dy=e.clientY-sY;
+      moved=Math.max(moved, Math.abs(dx), Math.abs(dy));
+      view.scrollLeft=sL-dx;
+      wrap();
+    });
+    function endDrag(){ if(!dragging) return; dragging=false; view.classList.remove('grabbing'); resumeSoon(2200); }
+    view.addEventListener('pointerup', endDrag);
+    view.addEventListener('pointercancel', endDrag);
+
+    // pulsar para abrir (si no fue un arrastre)
+    view.addEventListener('click', e=>{
+      if(moved>8){ moved=0; return; }
+      const card=e.target.closest('.person'); if(!card) return;
+      openPerson(+card.dataset.i);
+    });
+
+    setTimeout(()=>requestAnimationFrame(tick), 400);   // arranca cuando ya hay tamaño
+  })();
 
   // ===== Asistente del viaje (lenguaje natural, local, sin clave API) =====
   function aNorm(s){return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
